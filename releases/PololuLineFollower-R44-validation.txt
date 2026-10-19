@@ -1,0 +1,17 @@
+R44 test candidate - 19 October 2026
+ZIP SHA256: 3b2c20d53e58ca72bd4fc05280bd4d55a928346596f46cd25face0333212e6fc
+ZIP CRC, manifest and exact workspace byte checks: PASS (9 entries).
+Extracted ZIP pinned Leonardo build: PASS, 28670/28672 flash, 1508/2560 static RAM.
+Workspace build and cloud build have identical resource totals. Only 2 flash bytes remain.
+Packaged ELF allocator audit: no malloc/calloc/realloc/free.
+Four focused native executables: PASS, including 120 S-bend agreement cases.
+Crossing pairs: 54/54 at 5ms and 54/54 at 10ms. Frozen R43 differs in all 108 pairs.
+Maximum extra exit motor differential: R43 190/168 PWM; R44 zero.
+No line after crossing and Map mismatch at 200ms during crossing: PASS.
+Cloud source checks: https://github.com/altLov3r/robodays/actions/runs/39306146651
+Pinned versions are in README.md and ZIP VALIDATION.txt.
+Fresh extracted build emits four upstream AVR core new.cpp unused-tag warnings;
+no sketch warnings. R42/R43 ZIP hashes are unchanged.
+No hardware upload or physical R44 test. Full historical trajectories not rerun.
+Next: complete learning lap and Safe session on the large mat; record crossing exits,
+exact stop, E/D, location and voltage. Physical mismatch cause remains unconfirmed.

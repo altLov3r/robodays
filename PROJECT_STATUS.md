@@ -72,6 +72,8 @@ software limitations and keep the prior candidate available for comparison.
 - Focused native checks and pinned Leonardo build pass; flash 28670/28672,
   static RAM 1508/2560. Native regression checks confirm No line immediately
   after a crossing and Map mismatch at 200 ms during one. No new dependencies.
+- Cloud checks for the R44 firmware commit also pass:
+  https://github.com/altLov3r/robodays/actions/runs/39306146651.
 - Paired checks are limited to this crossing issue; full trajectories were not
   rerun. No physical speed, grip, map agreement or completion claim follows.
   The reported large-mat mismatch is still not conclusively diagnosed.
