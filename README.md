@@ -208,6 +208,13 @@ large positions, partial wrap, capacity/fault bounds and mixed turn directions.
 Acceleration tests validate each sample before reading the qualified launch
 state, matching the consolidated production control path.
 
+Additional native checks replay 120 prescribed S-bend profiles through all map
+resolutions, two travel rates, both directions, offsets of up to two bins and
+fixed/jittered ticks, including partial-bin wrap. Maximum pending disagreement
+was 30 ms; no mismatch stop occurred. Lap-boundary checks retain launch on a
+clear straight and revoke it on a corner or crossing. These fixtures do not
+validate learning, pose closure or grip on the photographed mat.
+
 Run paired models separately:
 
 ```powershell

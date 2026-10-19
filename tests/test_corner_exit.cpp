@@ -322,6 +322,29 @@ void testPendingMismatchControl()
   assert(leftCommand == 203 && rightCommand == 203);
 }
 
+void testLapBoundaryQualification()
+{
+  // Clear straight, corner at bin zero, and crossing at the estimated finish.
+  for (const int condition : {0, 1, 2})
+  {
+    readyFastReplay();
+    Fake::directCounts = true;
+    Fake::leftCounts = Fake::rightCounts = 2;
+    race.straightStableMs = Settings::STRAIGHT_SETTLE_MS;
+    race.distanceTwice = (race.learnedCounts - 1) * 2;
+    race.x = -0.1f;
+    race.y = race.heading = 0;
+    race.leftStartZone = race.returnArmed = true;
+    if (condition == 1) { race.curves[0] = race.curves[1] = 30; }
+    if (condition == 2) { for (auto & reading : Fake::readings) { reading = 900; } }
+    tick(5);
+    assert(state == RUNNING && race.completed == 2 && race.distanceCounts() == 0);
+    assert(race.straightStableMs == (condition ? 0 : Settings::STRAIGHT_SETTLE_MS));
+    assert(accelerationForTest(0, 0, condition == 2) == (condition ? 6 : 24));
+    assert(leftCommand >= 0 && leftCommand <= 400 && rightCommand >= 0 && rightCommand <= 400);
+  }
+}
+
 int main()
 {
   testContinuousAlignment();
@@ -330,9 +353,10 @@ int main()
   testCompletedDriveReference();
   testRepeatedSessionStartup();
   testPendingMismatchControl();
+  testLapBoundaryQualification();
   std::cout << "PASS: persistent straight alignment, rebound/hidden-throttle release, stronger settled launch, "
     "delivered-base turn assistance, straight-only derivative gain, completed-session model guard, "
     "seven consecutive button/gyro/map resets, pending-mismatch slowdown/live steering/boost inhibition "
-    "and unchanged persistent stop.\n";
+    "and unchanged persistent stop, lap-boundary launch qualification.\n";
   return 0;
 }

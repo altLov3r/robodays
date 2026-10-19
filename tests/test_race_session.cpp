@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <algorithm>
+#include <cmath>
 #include <iostream>
 #include <limits>
 #include "../PololuLineFollower/RaceSession.h"
@@ -778,6 +779,57 @@ void testSignedMismatchAndTimerBounds()
   }
 }
 
+void testMovingSBendAgreement()
+{
+  unsigned cases = 0, maxPending = 0;
+  for (const unsigned shift : {0u, 1u, 2u})
+  for (const int direction : {-1, 1})
+  for (int phase = -2; phase <= 2; phase++)
+  for (const unsigned speed : {600u, 1400u})
+  for (const bool jitter : {false, true})
+  {
+    RaceSession race;
+    replayMap(race, BEAST);
+    race.mapShift = shift;
+    race.binsUsed = 257;
+    const unsigned width = race.mapBinCounts();
+    race.learnedCounts = uint32_t(race.binsUsed) * width - 17;
+    for (unsigned bin = 0; bin < race.binsUsed; bin++)
+    {
+      const unsigned section = bin % 24;
+      race.curves[bin] = section < 8 ? 0 : direction * (section < 16 ? 30 : -30);
+    }
+    const auto actualBend = [&](uint32_t point) -> int
+    {
+      int32_t shifted = int32_t(point % race.learnedCounts) + phase * int(width);
+      if (shifted < 0) { shifted += race.learnedCounts; }
+      if (shifted >= int32_t(race.learnedCounts)) { shifted -= race.learnedCounts; }
+      return race.curves[unsigned(shifted) / width];
+    };
+    race.filteredCurve = actualBend(0) * 8;
+    uint32_t now = 0;
+    const unsigned periods[] = {5, 13, 7, 10};
+    for (unsigned frame = 0; race.distanceCounts() < race.learnedCounts + 2 * width; frame++)
+    {
+      const unsigned dt = jitter ? periods[frame % 4] : 5;
+      const unsigned counts = unsigned(std::lround(speed * dt / (1000 * RaceSession::MM_PER_COUNT)));
+      const int bend = actualBend(race.distanceCounts() + counts / 2);
+      const float turn = counts * RaceSession::MM_PER_COUNT * bend / 6000;
+      // Agreement-only fixture: suppress pose closure, preserving distance wrap.
+      race.x = race.y = 1000;
+      race.heading = 0;
+      race.leftStartZone = race.returnArmed = false;
+      now += dt;
+      assert(race.update(counts, counts, turn, dt, 100, now) == RaceSession::NO_EVENT);
+      assert(race.fault == RaceSession::NONE);
+      maxPending = std::max<unsigned>(maxPending, race.mismatchMs);
+    }
+    cases++;
+  }
+  std::cout << "Moving S-bend agreement: " << cases
+    << " cases, max pending mismatch " << maxPending << " ms.\n";
+}
+
 int main(int argc, char ** argv)
 {
   const bool focused = argc > 1 && strcmp(argv[1], "--focused") == 0;
@@ -795,6 +847,7 @@ int main(int argc, char ** argv)
   testCornerExitAssist();
   testMapMismatchPhaseTolerance();
   testSignedMismatchAndTimerBounds();
+  testMovingSBendAgreement();
   for (const auto mode : {SAFE, MID, BEAST})
   {
     RaceSession race;

@@ -32,3 +32,23 @@ that learning covers the entire physical course before replay starts.
 
 Prefer one justified fix with a regression over new release churn. Record
 software limitations and keep the prior candidate available for comparison.
+
+## Evening review: S-bend and lap transitions
+
+- Added 120 moving, prescribed S-bend agreement cases in
+  `tests/test_race_session.cpp`: both directions, all three map resolutions,
+  -2..+2 bin offsets, 600/1400 mm/s inputs, 5 ms or 5/13/7/10 ms ticks,
+  and partial-bin wrap. Maximum pending disagreement: 30 ms; no mismatch stop.
+  The expanded cases include positions beyond 65535 counts. They isolate map
+  agreement; pose closure is suppressed and physical learning is not tested.
+- Added actual-controller lap-boundary cases in `tests/test_corner_exit.cpp`.
+  A clear straight keeps qualified launch; a corner at bin zero or crossing
+  revokes it. No firmware defect was reproduced by these checks.
+- Firmware remains R43, with unchanged tuning and safeguards. No new ZIP or
+  release was justified. R42/R43 frozen ZIP hashes remain unchanged.
+- All four focused native executables pass. The pinned Leonardo build remains
+  28664/28672 flash and 1508/2560 static RAM. No paired model rerun was needed
+  for this test-only change. The delayed/noisy case 3 limitation remains open.
+- Next physical test: recalibrate on the large mat, start midway along the long
+  straight, verify one entire learning lap, then run Safe. Record exact stop,
+  error/derivative, voltage and which part of the corner/crossing failed.
