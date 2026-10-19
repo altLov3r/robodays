@@ -3,7 +3,7 @@
 #include <math.h>
 #include <string.h>
 
-constexpr uint8_t RACE_PLANNER_REVISION = 42;
+constexpr uint8_t RACE_PLANNER_REVISION = 43;
 
 enum DriveMode : uint8_t { SAFE, MID, BEAST };
 
@@ -30,7 +30,10 @@ public:
   static constexpr uint16_t MAP_CAPACITY = 512;
   static constexpr uint8_t MAX_MAP_SHIFT = 2;
   static_assert(BIN_COUNTS == 128, "Map indexing uses seven base distance bits.");
+  static_assert((uint32_t(MAP_CAPACITY) << MAX_MAP_SHIFT) < 65536UL,
+    "Base-bin indices must fit in 16 bits.");
   static constexpr uint32_t LAP_TIMEOUT_MS = 180000;
+  static constexpr uint8_t MAP_CAUTION_MS = 30;
   static constexpr float MM_PER_COUNT = 32.0f * 3.14159265f / 358.3f;
   static constexpr int8_t UNKNOWN_CURVE = -128;
   enum Fault : uint8_t { NONE, MAP_FULL, MAP_GAP, MAP_MISMATCH, NO_FINISH, BAD_MOTION };
@@ -51,7 +54,7 @@ public:
   float x = 0, y = 0, heading = 0, speedMmS = 0;
   bool leftStartZone = false;
   bool returnArmed = false;
-  uint16_t mismatchMs = 0;
+  uint8_t mismatchMs = 0; // Stops at 200; a validated tick adds at most 50 ms.
   int16_t filteredCurve = 0; // Curvature in eighths to retain filter precision.
   uint16_t speedScaleQ8 = 1024; // Measured mm/s per PWM, initially 4.0.
   // A clean Beast finish bounds later compensation; retained until power-off.
@@ -113,9 +116,14 @@ public:
   int16_t steeringLimit() const
   { return !mapReady ? 90 : (noisyLearning ? 110 : (mode == BEAST ? 140 : (mode == MID ? 110 : 90))); }
   uint32_t distanceCounts() const { return distanceTwice / 2; }
-  __attribute__((noinline)) bool trustedGeometry() const { return abs(turnVotes) >= 4; }
+  bool mapUncertain() const { return mismatchMs >= MAP_CAUTION_MS; }
+  // Bias [-3,3] to [0,6] for a single byte comparison on the AVR.
+  __attribute__((noinline)) bool trustedGeometry() const
+  { return static_cast<uint8_t>(turnVotes + 3) > 6; }
   uint16_t mapBinCounts() const { return BIN_COUNTS << mapShift; }
-  __attribute__((noinline)) uint16_t mapBin(uint32_t point) const { return point >> (7 + mapShift); }
+  // Map-local positions fit after removing the seven fixed base-distance bits.
+  __attribute__((noinline)) uint16_t mapBin(uint32_t point) const
+  { return static_cast<uint16_t>(point >> 7) >> mapShift; }
   __attribute__((noinline)) uint32_t mapPosition() const
   { return distanceCounts() % learnedCounts; }
 
@@ -270,27 +278,7 @@ public:
         fault = NO_FINISH;
         return NO_EVENT;
       }
-      const uint16_t bin = mapBin(mapPosition());
-      uint16_t index = bin;
-      // Gyro filtering and replay distance drift can shift a bend by two bins.
-      // This tolerance is diagnostic only; the braking map is not shifted.
-      for (uint8_t neighbor = 0; neighbor < 2; neighbor++)
-      {
-        index = index ? index - 1 : binsUsed - 1;
-      }
-      uint8_t expected = 0;
-      for (uint8_t neighbor = 0; neighbor < 5; neighbor++)
-      {
-        const uint8_t candidate = abs(curves[index]);
-        if (candidate > expected) { expected = candidate; }
-        if (++index == binsUsed) { index = 0; }
-      }
-      if (magnitude > expected + 16)
-      {
-        mismatchMs += elapsedMs;
-        if (mismatchMs >= 200) { fault = MAP_MISMATCH; return NO_EVENT; }
-      }
-      else { mismatchMs = 0; }
+      if (!updateMapAgreement(bend, elapsedMs)) { return NO_EVENT; }
     }
 
     if (x * x + y * y > 150.0f * 150.0f) { leftStartZone = true; }
@@ -355,7 +343,8 @@ public:
     if (!mapReady || !learnedCounts || !trustedGeometry()) { return 0; }
     const uint16_t bin = mapBin(mapPosition());
     const bool mappedStraight = mapPhase(bin) & 1;
-    const bool measuredAssistOnly = mapShift || noisyLearning || (mode == BEAST && mappedStraight);
+    const bool cautious = mapUncertain();
+    const bool measuredAssistOnly = mapShift || cautious || noisyLearning || (mode == BEAST && mappedStraight);
     if (yawWeight)
     {
       // Weaken damping before a bend, including the lap's partial final bin.
@@ -364,7 +353,7 @@ public:
     int8_t mapped = curves[bin];
     int16_t live = filteredCurve / 8;
     // A pooled bin can contain both turn directions: steer from live yaw only.
-    if (mapShift && mapped != UNKNOWN_CURVE) { mapped = live; }
+    if ((mapShift || cautious) && mapped != UNKNOWN_CURVE) { mapped = live; }
     int16_t confidence = abs(live) * 8;
     if (confidence < abs(error)) { confidence = abs(error); }
     if (abs(live) < 8)
@@ -374,7 +363,7 @@ public:
       live = (error > 0) == (turnVotes > 0) ? 8 : -8;
     }
     // A confirmed live bend may lead or trail the learned bin by a few cm.
-    for (int8_t neighbor = -1; !mapShift && neighbor <= 1; neighbor++)
+    for (int8_t neighbor = -1; !mapShift && !cautious && neighbor <= 1; neighbor++)
     {
       int16_t index = static_cast<int16_t>(bin) + neighbor;
       if (index < 0) { index = binsUsed - 1; }
@@ -451,7 +440,7 @@ public:
     const bool settled = trackingClear && exitQuietMs >= 20;
     const bool exiting = !mapShift && (phase & 2) && settled;
     // Releasing a trailing curve bin must never qualify it for straight boost.
-    launchCurveLimit = (phase & 1) && exitQuietMs >= 20 ? 32 : 0;
+    launchCurveLimit = !mapUncertain() && (phase & 1) && exitQuietMs >= 20 ? 32 : 0;
     while (offset <= window)
     {
       const uint16_t bin = mapBin(point);
@@ -488,6 +477,37 @@ public:
   }
 
 private:
+  bool updateMapAgreement(int8_t bend, uint8_t elapsedMs)
+  {
+    const uint16_t bin = mapBin(mapPosition());
+    uint16_t index = bin;
+    // Gyro filtering and replay distance drift can shift a bend by two bins.
+    // This tolerance is diagnostic only; the braking map is not shifted.
+    for (uint8_t neighbor = 0; neighbor < 2; neighbor++)
+    {
+      index = index ? index - 1 : binsUsed - 1;
+    }
+    uint8_t expected = 0;
+    for (uint8_t neighbor = 0; neighbor < 5; neighbor++)
+    {
+      const int8_t candidate = curves[index];
+      // Fine maps retain direction; pooled S-bends retain magnitude only.
+      if (candidate != UNKNOWN_CURVE && (mapShift || (candidate < 0) == (bend < 0)))
+      {
+        const uint8_t magnitude = abs(candidate);
+        if (magnitude > expected) { expected = magnitude; }
+      }
+      if (++index == binsUsed) { index = 0; }
+    }
+    if (abs(bend) > expected + 16)
+    {
+      mismatchMs += elapsedMs;
+      if (mismatchMs >= 200) { fault = MAP_MISMATCH; return false; }
+    }
+    else { mismatchMs = 0; }
+    return true;
+  }
+
   __attribute__((noinline)) static int8_t peakCurve(int8_t a, int8_t b)
   {
     const uint8_t magnitudeA = a < 0 ? -a : a;

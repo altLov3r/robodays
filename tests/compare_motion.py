@@ -11,7 +11,7 @@ from zipfile import ZipFile
 
 root = Path(__file__).resolve().parent.parent
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument("--baseline", default="R41")
+parser.add_argument("--baseline", default="R42")
 parser.add_argument("--candidate", type=Path, default=root, help="Workspace containing candidate sketch files.")
 parser.add_argument("--period-ms", type=int, choices=(5, 10), default=5)
 parser.add_argument("--stress", action="store_true", help="Include motor/geometry/noise variations.")
@@ -33,7 +33,42 @@ int main()
   {
     std::ostringstream diagnostic;
     std::streambuf * output = std::cout.rdbuf(diagnostic.rdbuf());
-    if (test == 29)
+    if (test == 31)
+    {
+      readyFastReplay();
+      race.mismatchMs = 30;
+      const int target = baseSpeedForLine(0, 0, false);
+      const int launch = race.launchCurveLimit;
+      memset(race.curves, -80, sizeof(race.curves));
+      race.filteredCurve = 240;
+      const int assist = race.steeringFeedforward(100, 0);
+      std::cout.rdbuf(output);
+      std::cout << "{\"case\":31,\"kind\":\"pending_mismatch\",\"target_pwm\":" << target
+        << ",\"launch_limit\":" << launch << ",\"live_assist\":" << assist << ",\"complete\":"
+        << (target <= 180 && launch == 0 && assist > 0) << "}\n";
+    }
+    else if (test == 32)
+    {
+      RaceSession session;
+      session.reset(BEAST, 0);
+      session.mapReady = true;
+      session.completed = 1;
+      session.learnedCounts = 20000;
+      session.binsUsed = 157;
+      memset(session.curves, 30, sizeof(session.curves));
+      session.filteredCurve = -240;
+      unsigned elapsed = 0;
+      while (session.fault == RaceSession::NONE && elapsed < 300)
+      {
+        elapsed += 5;
+        session.update(2, 2, -2 * RaceSession::MM_PER_COUNT * 30 / 6000, 5, 80, elapsed);
+      }
+      std::cout.rdbuf(output);
+      std::cout << "{\"case\":32,\"kind\":\"mismatch\",\"fault\":" << int(session.fault)
+        << ",\"elapsed_ms\":" << elapsed << ",\"complete\":"
+        << (session.fault == RaceSession::MAP_MISMATCH && elapsed == 200) << "}\n";
+    }
+    else if (test == 29)
     {
       RaceSession session;
       session.reset(BEAST, 0);
@@ -261,7 +296,7 @@ with tempfile.TemporaryDirectory(prefix="robodays-motion-") as temporary:
         tests.mkdir()
         shutil.copy2(root / "tests/test_line_follower.cpp", tests / "test_line_follower.cpp")
         shutil.copytree(root / "tests/fakes", tests / "fakes")
-        case_count = 31 if options.stress else 9
+        case_count = 33 if options.stress else 9
         source_text = harness.replace("MODEL_PERIOD", str(options.period_ms)).replace("MODEL_CASES", str(case_count))
         (tests / "motion.cpp").write_text(source_text, encoding="utf-8")
         executable = tests / "motion.exe"
@@ -277,7 +312,7 @@ with tempfile.TemporaryDirectory(prefix="robodays-motion-") as temporary:
         results[label] = [json.loads(line) for line in run.stdout.splitlines() if line.startswith("{")]
         assert len(results[label]) == case_count
     options.output.write_text(json.dumps({
-        "scope": f"{23 if options.stress else 8} uncalibrated motion cases, {options.period_ms} ms replay (jitter case 10-20 ms), plus {'command, throttle-release, settling, two mismatch, repeated-session, corner-entry and large-map fixtures' if options.stress else 'one command fixture'}; no physical lap prediction or calibrated tire friction.",
+        "scope": f"{23 if options.stress else 8} uncalibrated motion cases, {options.period_ms} ms replay (jitter case 10-20 ms), plus {'command, throttle-release, settling, three mismatch, repeated-session, corner-entry, large-map and pending-mismatch fixtures' if options.stress else 'one command fixture'}; no physical lap prediction or calibrated tire friction.",
         "results": results,
     }, indent=2) + "\n", encoding="utf-8")
 
@@ -285,7 +320,13 @@ for old, new in zip(results[options.baseline], results["current"]):
     assert old["case"] == new["case"]
     if old["complete"] and not new["complete"]:
         raise SystemExit(f"Model regression in case {old['case']}; see {options.output}")
-    if new["kind"] == "large_map":
+    if new["kind"] == "pending_mismatch":
+        if not new["complete"]:
+            raise SystemExit(f"Pending mismatch control failed; see {options.output}")
+        print(f"Case 31: pending target {old['target_pwm']}->{new['target_pwm']} PWM; "
+              f"launch {old['launch_limit']}->{new['launch_limit']}; "
+              f"live assist {old['live_assist']}->{new['live_assist']}")
+    elif new["kind"] == "large_map":
         if not new["complete"]:
             raise SystemExit(f"Large map failed; see {options.output}")
         print(f"Case 29: storage complete {old['complete']} -> {new['complete']}; "

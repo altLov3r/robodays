@@ -49,6 +49,12 @@ int densePooledPlan(const RaceSession & race)
 void testCapacityAndPartialWrap()
 {
   RaceSession race;
+  for (const uint8_t shift : {0, 1, 2})
+  for (const uint32_t point : {0u, 127u, 128u, 65535u, 65536u, 131071u, 131072u, 262144u})
+  {
+    race.mapShift = shift;
+    assert(race.mapBin(point) == point / (128u << shift));
+  }
   race.reset(BEAST, 0);
   for (unsigned i = 0; i < 512; i++) { record(race, 128); }
   assert(race.fault == RaceSession::NONE && race.mapShift == 0 && race.binsUsed == 512);

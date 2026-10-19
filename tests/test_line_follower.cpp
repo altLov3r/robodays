@@ -952,7 +952,11 @@ void testLimiterTelemetry()
     readyFastReplay();
     forwardCommand = leftCommand = rightCommand = 400;
     if (reason == MAP_LIMIT) { memset(race.curves, 127, sizeof(race.curves)); }
-    if (reason == YAW_LIMIT) { race.filteredCurve = 240; }
+    if (reason == YAW_LIMIT)
+    {
+      race.filteredCurve = 240;
+      race.curves[2] = 9; // Accepted neighboring bend; isolate live-yaw limiting.
+    }
     if (reason == LINE_LIMIT)
     {
       Fake::position = 2500;

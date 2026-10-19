@@ -728,6 +728,56 @@ void testMapMismatchPhaseTolerance()
   assert(race.fault == RaceSession::NONE && race.mismatchMs == 0);
 }
 
+void testSignedMismatchAndTimerBounds()
+{
+  for (const int sign : {-1, 1})
+  for (const unsigned shift : {0u, 1u, 2u})
+  {
+    RaceSession race;
+    replayMap(race, BEAST);
+    race.mapShift = shift;
+    race.learnedCounts = uint32_t(race.binsUsed) * race.mapBinCounts();
+    memset(race.curves, sign * 30, sizeof(race.curves));
+    race.filteredCurve = -sign * 240;
+    const float turn = -sign * 2 * RaceSession::MM_PER_COUNT * 30 / 6000;
+    for (unsigned now = 5; now <= 200; now += 5)
+    {
+      race.update(2, 2, turn, 5, 80, now);
+      if (shift)
+      { assert(race.fault == RaceSession::NONE && race.mismatchMs == 0); }
+      else
+      {
+        assert(race.mismatchMs == now);
+        assert(race.fault == (now < 200 ? RaceSession::NONE : RaceSession::MAP_MISMATCH));
+      }
+    }
+    replayMap(race, BEAST);
+    race.curves[0] = sign * 30;
+    race.curves[1] = -sign * 30;
+    race.filteredCurve = -sign * 240;
+    for (unsigned now = 5; now <= 300; now += 5)
+    { race.update(2, 2, turn, 5, 80, now); }
+    assert(race.fault == RaceSession::NONE && race.mismatchMs == 0);
+  }
+  RaceSession race;
+  replayMap(race, BEAST);
+  race.filteredCurve = 240;
+  unsigned now = 0;
+  for (const uint16_t dt : {49, 49, 49, 49, 50})
+  {
+    now += dt;
+    race.update(100, 100, 100 * RaceSession::MM_PER_COUNT * 30 / 6000, dt, 80, now);
+    assert(race.mismatchMs == now);
+    assert(race.fault == (now < 200 ? RaceSession::NONE : RaceSession::MAP_MISMATCH));
+  }
+  assert(race.mismatchMs == 246); // Largest validated additions cannot wrap the byte timer.
+  for (int votes = -128; votes <= 127; votes++)
+  {
+    race.turnVotes = votes;
+    assert(race.trustedGeometry() == (abs(votes) >= 4));
+  }
+}
+
 int main(int argc, char ** argv)
 {
   const bool focused = argc > 1 && strcmp(argv[1], "--focused") == 0;
@@ -744,6 +794,7 @@ int main(int argc, char ** argv)
   testSpatialMap();
   testCornerExitAssist();
   testMapMismatchPhaseTolerance();
+  testSignedMismatchAndTimerBounds();
   for (const auto mode : {SAFE, MID, BEAST})
   {
     RaceSession race;

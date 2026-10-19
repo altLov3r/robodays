@@ -108,7 +108,7 @@ inline uint16_t readBatteryMillivolts()
 #include <avr/wdt.h>
 #include "RaceSession.h"
 
-static_assert(RACE_PLANNER_REVISION == 42, "Update both sketch files together.");
+static_assert(RACE_PLANNER_REVISION == 43, "Update both sketch files together.");
 
 using namespace Pololu3piPlus32U4;
 
@@ -854,7 +854,9 @@ int16_t baseSpeedForLine(int16_t error, int16_t delta, bool crossing)
   // penalty twice by scaling an already-reduced mapped target again.
   const int16_t cruise = race.profile().cruise;
   const int16_t live = trackingSpeed(cruise, demand);
-  const int16_t mapped = race.plannedCruise(lineSettled(error, delta));
+  int16_t mapped = race.plannedCruise(lineSettled(error, delta));
+  // Brake while the mismatch detector gathers evidence, before its 200 ms stop.
+  if (race.mapUncertain() && mapped > 180) { mapped = 180; }
   speedLimiter = mapped < live ? (race.liveLimited ? YAW_LIMIT : MAP_LIMIT) : LINE_LIMIT;
   if (mapped == cruise && live == cruise) { speedLimiter = FULL_SPEED; }
   return live < mapped ? live : mapped;
@@ -1056,7 +1058,7 @@ void setup()
   ledRed(false);
   ledGreen(false);
   ledYellow(false);
-  showStatus(F("3pi+ R42"), buttonMenu());
+  showStatus(F("3pi+ R43"), buttonMenu());
   lastIdleUpdate = millis() - 500;
   showIdleInfo(millis());
   lastButtonHeld = millis();

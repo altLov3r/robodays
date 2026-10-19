@@ -264,6 +264,64 @@ void testRepeatedSessionStartup()
   }
 }
 
+void testPendingMismatchControl()
+{
+  readyFastReplay();
+  for (const uint8_t pending : {0, 5, 20, 29})
+  {
+    race.mismatchMs = pending;
+    assert(baseSpeedForLine(0, 0, false) == 400);
+  }
+  race.mismatchMs = 30;
+  assert(baseSpeedForLine(0, 0, false) == 180 && speedLimiter == MAP_LIMIT);
+  assert(race.launchCurveLimit == 0);
+  qualifyStraight(0, 0, false, 5);
+  assert(race.straightStableMs == 0 && accelerationForTest(0, 0, false) == 6);
+  // A disagreed fine map must not command its stored, opposing turn direction.
+  for (const int sign : {-1, 1})
+  {
+    memset(race.curves, -sign * 80, sizeof(race.curves));
+    race.filteredCurve = sign * 30 * 8;
+    assert(race.steeringFeedforward(100, 0) * sign > 0);
+  }
+
+  for (const int sign : {-1, 1})
+  {
+    readyFastReplay();
+    Fake::directCounts = true;
+    Fake::leftCounts = Fake::rightCounts = 10;
+    const float turn = 10 * RaceSession::MM_PER_COUNT * sign * 30 / 6000;
+    Fake::gyroRaw = lroundf(turn / (0.07f * 3.14159265f / 180 * 0.005f));
+    race.filteredCurve = sign * 240;
+    forwardCommand = leftCommand = rightCommand = 300;
+    motors.setSpeeds(300, 300);
+    const unsigned displayWrites = Fake::displayWrites;
+    for (unsigned elapsed = 5; elapsed <= 200; elapsed += 5)
+    {
+      const int previous = (leftCommand + rightCommand) / 2;
+      tick(5);
+      if (elapsed < 200)
+      {
+        assert(state == RUNNING && race.mismatchMs == elapsed);
+        assert(race.straightStableMs == 0 && race.profile().limit == 400);
+        assert(previous - (leftCommand + rightCommand) / 2 <= 2);
+        if (elapsed >= 30) { assert(baseSpeedForLine(0, 0, false) <= 180); }
+        assert(Fake::displayWrites == displayWrites);
+      }
+    }
+    expectStopped("Map mismatch");
+    assert(race.fault == RaceSession::MAP_MISMATCH && race.mismatchMs == 200);
+  }
+  readyFastReplay();
+  race.mismatchMs = 80;
+  race.straightStableMs = 0;
+  forwardCommand = leftCommand = rightCommand = 200;
+  motors.setSpeeds(200, 200);
+  tick(5); // A fresh agreeing sample clears the pending mismatch.
+  assert(state == RUNNING && race.mismatchMs == 0 && race.straightStableMs == 5);
+  assert(leftCommand == 203 && rightCommand == 203);
+}
+
 int main()
 {
   testContinuousAlignment();
@@ -271,8 +329,10 @@ int main()
   testDeliveredTurnAssistance();
   testCompletedDriveReference();
   testRepeatedSessionStartup();
+  testPendingMismatchControl();
   std::cout << "PASS: persistent straight alignment, rebound/hidden-throttle release, stronger settled launch, "
-    "delivered-base turn assistance, straight-only derivative gain, completed-session model guard "
-    "and seven consecutive button/gyro/map resets.\n";
+    "delivered-base turn assistance, straight-only derivative gain, completed-session model guard, "
+    "seven consecutive button/gyro/map resets, pending-mismatch slowdown/live steering/boost inhibition "
+    "and unchanged persistent stop.\n";
   return 0;
 }
