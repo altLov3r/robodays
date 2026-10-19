@@ -79,3 +79,21 @@ software limitations and keep the prior candidate available for comparison.
   The reported large-mat mismatch is still not conclusively diagnosed.
 - Next lab test remains a complete learning lap and Safe session on the actual
   mat, watching crossing exits and recording exact stop/E/D/location/voltage.
+
+## Late review: learning at crossings
+
+- Added 18 learning-stage centered/asymmetric crossing pairs in
+  `tests/test_corner_exit.cpp`: both gyro polarities, 10/80/180 ms crossings,
+  and starting positions 0/65530/131066 counts. The latter positions trigger
+  the first and second map compactions during the crossing.
+- R44 continues accumulating nonzero gyro-derived bends during ambiguous optical
+  readings. Maps, curvature accumulators, control traces, width/polarity and
+  speed-scale estimates match the centered reference. No false learning-noise
+  fallback occurs; existing genuine-noise fallback tests remain passing.
+- All four focused native executables pass. Firmware and R44 tuning remain
+  unchanged; no new release or paired trajectory rerun is justified. Source
+  bytes match the frozen R44 ZIP, and R42/R43/R44 ZIP hashes are preserved.
+  The pinned R44 build remains 28670/28672 flash and 1508/2560 static RAM.
+- These are scripted controller/storage inputs with pose closure suppressed.
+  The next physical test remains the entire learning lap followed by Safe,
+  watching crossing exits and recording exact stop, E/D, location and voltage.

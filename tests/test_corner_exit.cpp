@@ -369,6 +369,78 @@ void testCrossingStops()
   assert(race.mismatchMs == 200);
 }
 
+void testCrossingLearning()
+{
+  unsigned cases = 0;
+  for (const int polarity : {-1, 1})
+  for (const uint32_t start : {0u, 65530u, 131066u})
+  for (const unsigned duration : {1u, 8u, 18u})
+  {
+    RaceSession reference;
+    std::vector<int> referenceTrace;
+    for (const bool asymmetric : {false, true})
+    {
+      readyRun();
+      selectedMode = BEAST;
+      race.reset(BEAST, Fake::now);
+      // Storage/controller fixture, including samples that trigger compaction.
+      race.distanceTwice = start * 2;
+      race.mapShift = start > 65536 ? 1 : 0;
+      race.binsUsed = (start + race.mapBinCounts() - 1) / race.mapBinCounts();
+      memset(race.curves, 0, race.binsUsed);
+      race.mapWeight = (start % RaceSession::BIN_COUNTS) * 2;
+      race.x = race.y = 1000; // Suppress pose closure; no synthetic lap claim.
+      lastError = filteredDelta = 0;
+      forwardCommand = leftCommand = rightCommand = 80;
+      motors.setSpeeds(80, 80);
+      Fake::directCounts = true;
+      Fake::leftCounts = 12;
+      Fake::rightCounts = 8;
+      const float turn = polarity * 4 * RaceSession::MM_PER_COUNT / 86;
+      Fake::gyroRaw = lroundf(turn / (0.07f * 3.14159265f / 180 * 0.01f));
+      std::vector<int> trace;
+      for (unsigned frame = 0; frame < duration + 16; frame++)
+      {
+        const bool crossing = frame < duration;
+        const int side = frame % 2 ? 1 : -1;
+        Fake::position = 2000 + (crossing && asymmetric ? side * 500 : 0);
+        for (unsigned i = 0; i < 5; i++)
+        { Fake::readings[i] = crossing || i == 2 ? 1000 : 0; }
+        if (crossing && asymmetric) { Fake::readings[side < 0 ? 4 : 0] = 0; }
+        tick(10);
+        assert(state == RUNNING && !race.mapReady && race.fault == RaceSession::NONE);
+        assert(!race.noisyLearning && race.learningNoise == 0);
+        if (frame + 1 == duration)
+        { assert(race.mapCurveSum * polarity > 0 && race.filteredCurve * polarity > 0); }
+        const int values[] = {lastError, filteredDelta, leftCommand, rightCommand};
+        for (const int value : values) { trace.push_back(value); }
+      }
+      assert(race.distanceCounts() == start + 10 * (duration + 16));
+      assert(race.mapShift == (start ? (start > 65536 ? 2 : 1) : 0));
+      assert(race.turnVotes * polarity > 0);
+      bool recordedTurn = false;
+      for (unsigned bin = 0; bin < race.binsUsed; bin++)
+      {
+        if (race.curves[bin] != RaceSession::UNKNOWN_CURVE && abs(race.curves[bin]) >= 20)
+        { recordedTurn = true; }
+      }
+      assert(recordedTurn); // Crossing handling must not blank gyro-derived bends.
+      if (!asymmetric) { reference = race; referenceTrace = trace; }
+      else
+      {
+        assert(trace == referenceTrace);
+        assert(memcmp(race.curves, reference.curves, sizeof(race.curves)) == 0);
+        assert(race.mapWeight == reference.mapWeight && race.mapCurveSum == reference.mapCurveSum);
+        assert(race.filteredCurve == reference.filteredCurve && race.turnVotes == reference.turnVotes);
+        assert(race.trackWidthMm == reference.trackWidthMm && race.speedScaleQ8 == reference.speedScaleQ8);
+        cases++;
+      }
+    }
+  }
+  std::cout << "Learning crossings: " << cases
+    << " centered/asymmetric pairs preserve map, geometry and fallback state.\n";
+}
+
 int main()
 {
   testContinuousAlignment();
@@ -379,6 +451,7 @@ int main()
   testPendingMismatchControl();
   testLapBoundaryQualification();
   testCrossingStops();
+  testCrossingLearning();
   std::cout << "PASS: persistent straight alignment, rebound/hidden-throttle release, stronger settled launch, "
     "delivered-base turn assistance, straight-only derivative gain, completed-session model guard, "
     "seven consecutive button/gyro/map resets, pending-mismatch slowdown/live steering/boost inhibition "

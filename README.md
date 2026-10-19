@@ -229,6 +229,11 @@ was 30 ms; no mismatch stop occurred. Lap-boundary checks retain launch on a
 clear straight and revoke it on a corner or crossing. These fixtures do not
 validate learning, pose closure or grip on the photographed mat.
 
+Learning-stage crossing checks also compare 18 centered/asymmetric input pairs,
+including both map-compaction boundaries. Gyro-derived bends are recorded during
+the crossing, and map/geometry estimates match without a false noise fallback.
+These input fixtures suppress pose closure and do not establish physical grip.
+
 For the R44 crossing regression, compare command traces:
 
 ```powershell
