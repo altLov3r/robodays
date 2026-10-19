@@ -1,0 +1,27 @@
+name: Firmware checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Native regressions
+        run: python3 tests/run_tests.py --focused
+      - uses: arduino/setup-arduino-cli@7ef629dcdf0f458ab7ae83149d629443deac6eac # v2.0.0
+      - name: Install pinned board and libraries
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:avr@1.8.8
+          arduino-cli lib update-index
+          arduino-cli lib install 'Pololu3piPlus32U4@1.1.3' 'PololuOLED@2.0.0' 'FastGPIO@2.2.0' 'Pushbutton@2.0.0' 'USBPause@2.0.0'
+      - name: Compile OLED Standard firmware
+        run: arduino-cli compile --fqbn arduino:avr:leonardo --warnings all PololuLineFollower
