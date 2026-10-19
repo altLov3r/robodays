@@ -345,6 +345,30 @@ void testLapBoundaryQualification()
   }
 }
 
+void testCrossingStops()
+{
+  readyFastReplay();
+  for (auto & reading : Fake::readings) { reading = 1000; }
+  tick(5);
+  for (auto & reading : Fake::readings) { reading = 0; }
+  tick(5);
+  expectStopped("No line");
+
+  readyFastReplay();
+  Fake::directCounts = true;
+  Fake::leftCounts = Fake::rightCounts = 4;
+  const float turn = 4 * RaceSession::MM_PER_COUNT * 30 / 6000;
+  Fake::gyroRaw = lroundf(turn / (0.07f * 3.14159265f / 180 * 0.005f));
+  race.filteredCurve = 240;
+  race.mismatchMs = 190;
+  for (auto & reading : Fake::readings) { reading = 1000; }
+  tick(5);
+  assert(state == RUNNING && race.mismatchMs == 195);
+  tick(5);
+  expectStopped("Map mismatch");
+  assert(race.mismatchMs == 200);
+}
+
 int main()
 {
   testContinuousAlignment();
@@ -354,6 +378,7 @@ int main()
   testRepeatedSessionStartup();
   testPendingMismatchControl();
   testLapBoundaryQualification();
+  testCrossingStops();
   std::cout << "PASS: persistent straight alignment, rebound/hidden-throttle release, stronger settled launch, "
     "delivered-base turn assistance, straight-only derivative gain, completed-session model guard, "
     "seven consecutive button/gyro/map resets, pending-mismatch slowdown/live steering/boost inhibition "

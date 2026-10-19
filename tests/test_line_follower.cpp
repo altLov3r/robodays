@@ -816,6 +816,64 @@ void readyFastReplay(bool attack = false)
   lastSensorMicros = micros();
 }
 
+struct CrossingMetrics
+{
+  unsigned cases = 0, failed = 0;
+  int maxExitDeltaDifference = 0, maxExitMotorDifference = 0;
+};
+
+CrossingMetrics testCrossingHistory(uint16_t period)
+{
+  struct Trace { std::vector<int> samples; int exitDelta = 0, exitTurn = 0; };
+  CrossingMetrics metrics;
+  for (const unsigned duration : {1u, 4u, 12u})
+  for (const int entrance : {-120, 0, 120})
+  for (const int exit : {-120, 0, 120})
+  {
+    const auto probe = [&](int offset) -> Trace
+    {
+      readyFastReplay();
+      Fake::directCounts = true;
+      Fake::leftCounts = Fake::rightCounts = period == 5 ? 4 : 8;
+      lastError = entrance;
+      const unsigned writes = Fake::displayWrites;
+      Trace trace;
+      for (unsigned frame = 0; frame < duration + 8; frame++)
+      {
+        const bool crossing = frame < duration;
+        Fake::position = 2000 + (crossing ? offset : exit);
+        for (unsigned i = 0; i < 5; i++)
+        { Fake::readings[i] = crossing || i == 2 ? 1000 : 0; }
+        if (crossing && offset) { Fake::readings[offset < 0 ? 4 : 0] = 0; }
+        tick(period);
+        assert(state == RUNNING && race.fault == RaceSession::NONE);
+        assert(Fake::displayWrites == writes);
+        const int values[] = {lastError, filteredDelta, leftCommand, rightCommand,
+          forwardCommand};
+        for (const int value : values) { trace.samples.push_back(value); }
+        if (frame == duration)
+        {
+          trace.exitDelta = filteredDelta;
+          trace.exitTurn = leftCommand - rightCommand;
+        }
+      }
+      return trace;
+    };
+    const auto centered = probe(0);
+    for (const int offset : {-500, 500})
+    {
+      const auto asymmetric = probe(offset);
+      metrics.cases++;
+      metrics.failed += centered.samples != asymmetric.samples;
+      metrics.maxExitDeltaDifference = std::max(metrics.maxExitDeltaDifference,
+        abs(centered.exitDelta - asymmetric.exitDelta));
+      metrics.maxExitMotorDifference = std::max(metrics.maxExitMotorDifference,
+        abs(centered.exitTurn - asymmetric.exitTurn));
+    }
+  }
+  return metrics;
+}
+
 void testTightLaunchGate()
 {
   for (const int limit : {0, 32, 96})
@@ -2053,6 +2111,13 @@ int main(int argc, char ** argv)
   testExitLaunch();
   testCornerExitLineConfirmation();
   testFastControl();
+  for (const uint16_t period : {5, 10})
+  {
+    const auto crossing = testCrossingHistory(period);
+    assert(crossing.cases == 54 && crossing.failed == 0);
+    std::cout << "Crossing history " << period << " ms: " << crossing.cases
+      << " centered/asymmetric trace pairs match.\n";
+  }
   if (focused)
   {
     std::cout << "PASS: settled straight launch, R24 steering, startup, fixed calibration, OLED/limiter shares, buttons/faults, "

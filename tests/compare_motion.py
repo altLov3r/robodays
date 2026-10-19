@@ -15,6 +15,7 @@ parser.add_argument("--baseline", default="R42")
 parser.add_argument("--candidate", type=Path, default=root, help="Workspace containing candidate sketch files.")
 parser.add_argument("--period-ms", type=int, choices=(5, 10), default=5)
 parser.add_argument("--stress", action="store_true", help="Include motor/geometry/noise variations.")
+parser.add_argument("--crossings-only", action="store_true", help="Compare crossing command traces only; no trajectory models.")
 parser.add_argument("--output", type=Path, required=True)
 options = parser.parse_args()
 compiler = shutil.which("g++") or "C:/msys64/mingw64/bin/g++.exe"
@@ -279,6 +280,21 @@ int main()
 '''
 
 results = {}
+if options.crossings_only:
+    harness = r'''
+#define main regression_main
+#include "test_line_follower.cpp"
+#undef main
+int main()
+{
+  const auto data = testCrossingHistory(MODEL_PERIOD);
+  std::cout << "{\"case\":0,\"kind\":\"crossing\",\"pairs\":" << data.cases
+    << ",\"failed_pairs\":" << data.failed
+    << ",\"max_exit_delta_difference\":" << data.maxExitDeltaDifference
+    << ",\"max_exit_motor_difference\":" << data.maxExitMotorDifference
+    << ",\"complete\":" << (data.failed == 0) << "}\n";
+}
+'''
 with tempfile.TemporaryDirectory(prefix="robodays-motion-") as temporary:
     workspace = Path(temporary).resolve()
     assert workspace.is_relative_to(Path(tempfile.gettempdir()).resolve())
@@ -296,7 +312,7 @@ with tempfile.TemporaryDirectory(prefix="robodays-motion-") as temporary:
         tests.mkdir()
         shutil.copy2(root / "tests/test_line_follower.cpp", tests / "test_line_follower.cpp")
         shutil.copytree(root / "tests/fakes", tests / "fakes")
-        case_count = 33 if options.stress else 9
+        case_count = 1 if options.crossings_only else (33 if options.stress else 9)
         source_text = harness.replace("MODEL_PERIOD", str(options.period_ms)).replace("MODEL_CASES", str(case_count))
         (tests / "motion.cpp").write_text(source_text, encoding="utf-8")
         executable = tests / "motion.exe"
@@ -312,7 +328,9 @@ with tempfile.TemporaryDirectory(prefix="robodays-motion-") as temporary:
         results[label] = [json.loads(line) for line in run.stdout.splitlines() if line.startswith("{")]
         assert len(results[label]) == case_count
     options.output.write_text(json.dumps({
-        "scope": f"{23 if options.stress else 8} uncalibrated motion cases, {options.period_ms} ms replay (jitter case 10-20 ms), plus {'command, throttle-release, settling, three mismatch, repeated-session, corner-entry, large-map and pending-mismatch fixtures' if options.stress else 'one command fixture'}; no physical lap prediction or calibrated tire friction.",
+        "scope": (f"54 centered/asymmetric crossing command-trace pairs, {options.period_ms} ms; no trajectory or grip model."
+                  if options.crossings_only else
+                  f"{23 if options.stress else 8} uncalibrated motion cases, {options.period_ms} ms replay (jitter case 10-20 ms), plus {'command, throttle-release, settling, three mismatch, repeated-session, corner-entry, large-map and pending-mismatch fixtures' if options.stress else 'one command fixture'}; no physical lap prediction or calibrated tire friction."),
         "results": results,
     }, indent=2) + "\n", encoding="utf-8")
 
@@ -320,7 +338,10 @@ for old, new in zip(results[options.baseline], results["current"]):
     assert old["case"] == new["case"]
     if old["complete"] and not new["complete"]:
         raise SystemExit(f"Model regression in case {old['case']}; see {options.output}")
-    if new["kind"] == "pending_mismatch":
+    if new["kind"] == "crossing":
+        print(f"Crossing pairs: {old['failed_pairs']} -> {new['failed_pairs']} differing traces; "
+              f"extra exit differential {old['max_exit_motor_difference']} -> {new['max_exit_motor_difference']} PWM")
+    elif new["kind"] == "pending_mismatch":
         if not new["complete"]:
             raise SystemExit(f"Pending mismatch control failed; see {options.output}")
         print(f"Case 31: pending target {old['target_pwm']}->{new['target_pwm']} PWM; "

@@ -1,0 +1,27 @@
+{
+  "scope": "54 centered/asymmetric crossing command-trace pairs, 5 ms; no trajectory or grip model.",
+  "results": {
+    "R43": [
+      {
+        "case": 0,
+        "kind": "crossing",
+        "pairs": 54,
+        "failed_pairs": 54,
+        "max_exit_delta_difference": 281,
+        "max_exit_motor_difference": 190,
+        "complete": 0
+      }
+    ],
+    "current": [
+      {
+        "case": 0,
+        "kind": "crossing",
+        "pairs": 54,
+        "failed_pairs": 0,
+        "max_exit_delta_difference": 0,
+        "max_exit_motor_difference": 0,
+        "complete": 1
+      }
+    ]
+  }
+}

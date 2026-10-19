@@ -3,7 +3,7 @@
 #include <math.h>
 #include <string.h>
 
-constexpr uint8_t RACE_PLANNER_REVISION = 43;
+constexpr uint8_t RACE_PLANNER_REVISION = 44;
 
 enum DriveMode : uint8_t { SAFE, MID, BEAST };
 

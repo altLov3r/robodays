@@ -1,8 +1,8 @@
 # Pololu 3pi+ Standard line follower
 
-**R43 test candidate - map-disagreement caution and direction checks.**
+**R44 test candidate - prevent steering-history spikes at crossings.**
 For the stock **Pololu 3pi+ 32U4 OLED Standard, 30:1 MP motors**, black line on
-white floor. Replace both sketch files together. R42 remains available.
+white floor. Replace both sketch files together. R42 and R43 remain available.
 
 The private repository is [altLov3r/robodays](https://github.com/altLov3r/robodays).
 See [CLOUD.md](CLOUD.md) for access from another PC and the separate Codex Cloud
@@ -10,6 +10,13 @@ setup. Record physical tests in [LAB_TEST.md](LAB_TEST.md).
 
 ## What changed
 
+- R44 keeps the last valid optical error while four or five sensors see black.
+  An asymmetric crossing has no unique line center; feeding it into the
+  derivative previously caused a turn after the real line was centered again.
+  The existing derivative filter relaxes normally during the crossing. Valid
+  line readings resume on exit. Crossing speed/straight-ahead behavior, map
+  agreement, stop conditions and all speed/gain settings remain unchanged.
+- The following map changes were introduced in R42/R43 and remain in R44.
 - The owner clarified the big-track stop was **Map mismatch**, with one
   incorrect corner. A Map full or RAM failure was not confirmed.
 - After **30 ms of continuous disagreement**, requests are capped at **180 PWM**,
@@ -37,22 +44,29 @@ setup. Record physical tests in [LAB_TEST.md](LAB_TEST.md).
 
 ## Validation and limits
 
+- All **108 crossing trace pairs** pass at 5/10 ms. Under identical valid entry
+  and exit readings, centered and asymmetric crossing inputs now produce the
+  same control history. Frozen R43 differs in all 108 pairs, with up to 190/168
+  PWM extra exit differential. These are command fixtures, not physical tests.
+- Immediate No line and the persistent 200 ms Map mismatch stop remain active
+  after/during a crossing. R44 has not been tested on the larger mat.
 - Four native test executables pass. New checks cover both compactions, exact
   capacity, sample chunks from 1 to 500 counts, partial-bin flush/wrap, opposite
   bend peaks, live-yaw steering and the final bounded Map full stop.
 - New checks cover direction, pooled S-bends, caution thresholds, boost,
   ordinary braking, live assistance, recovery and timer increments to 246 ms.
-- Paired R42/R43 reports contain **23 motion cases + 10 fixtures** at 5/10 ms.
-  All current cases complete; most course results match R42. In noisy delayed
+- Historical paired R42/R43 reports contain **23 motion cases + 10 fixtures**
+  at 5/10 ms. All R43 cases complete; most course results match R42. In noisy delayed
   jitter case 3, mean speed falls from 1245 to about 1204 mm/s and sensor SD
   rises from 1.884 to about 2.478 mm. This is not a general speed/stability gain.
 - The older `testStraightStability()` check fails its legacy output-drop bound
   for noise40 at 10 ms in both frozen R42 and R43, with identical data. It is
   not counted as passing. Steering allocation can reduce actual wheel average
   faster than the common ramp. The full historical trajectory suite was not run.
-- Leonardo build: **28,664/28,672 bytes flash**, **1508/2560 static RAM**.
+- Leonardo build: **28,670/28,672 bytes flash**, **1508/2560 static RAM**.
   The map remains 512 bytes; no linked malloc/calloc/realloc/free.
   The 1052 bytes available for stack/locals are not a measured stack margin.
+  Only two flash bytes remain; the pinned toolchain is required.
 
 For the photographed track, start near the **middle of the long straight**,
 well away from a crossing or turn, and point along the line. Recalibrate on the
@@ -65,10 +79,10 @@ detection. If it stops, record the exact text and its error/derivative pair.
 
 ## Install and upload
 
-1. Extract `releases/PololuLineFollower-R43.zip`.
+1. Extract `releases/PololuLineFollower-R44.zip`.
 2. Open `PololuLineFollower/PololuLineFollower.ino` in Arduino IDE. Keep
    `RaceSession.h` beside it and replace **both files together**. Startup shows
-   **R43**; mismatched planner revisions fail compilation.
+   **R44**; mismatched planner revisions fail compilation.
 3. Install **Pololu3piPlus32U4** through Library Manager and accept dependencies.
 4. Select **Arduino Leonardo**, ATmega32U4 at 16 MHz, and the robot's USB port.
    The OLED edition is required; this is not firmware for Turtle/Hyper motors.
@@ -87,7 +101,7 @@ detection. If it stops, record the exact text and its error/derivative pair.
 - **B:** release to arm, then keep the robot still during the two-second gyro
   bias measurement. The first lap learns slowly; the next two use the map.
 - The robot stops after **three estimated laps** and holds the results.
-  Another B starts a fresh learning session; R43 retains its completed-session
+  Another B starts a fresh learning session; R44 retains its completed-session
   reference until power-off. A reruns calibration.
 - Any A/B/C button stops driving. During release-to-arm, the initiating A/B
   button may remain held. There is no blind lost-line recovery or auto restart.
@@ -215,20 +229,21 @@ was 30 ms; no mismatch stop occurred. Lap-boundary checks retain launch on a
 clear straight and revoke it on a corner or crossing. These fixtures do not
 validate learning, pose closure or grip on the photographed mat.
 
-Run paired models separately:
+For the R44 crossing regression, compare command traces:
 
 ```powershell
-python tests/compare_motion.py --baseline R42 --stress --output releases/PololuLineFollower-R43-motion.json
-python tests/compare_motion.py --baseline R42 --stress --period-ms 10 --output releases/PololuLineFollower-R43-motion-10ms.json
+python tests/compare_motion.py --baseline R43 --crossings-only --output releases/PololuLineFollower-R44-crossings.json
+python tests/compare_motion.py --baseline R43 --crossings-only --period-ms 10 --output releases/PololuLineFollower-R44-crossings-10ms.json
 ```
 
-The same current harness compiles against frozen R42 and current firmware.
-New caution and wrong-direction fixtures expose earlier behavior;
-all current cases must complete. Both reports are included in the R43 ZIP.
+The same current harness compiles against frozen R43 and current firmware.
+Each report retains R43's failing baseline and requires all current crossing
+pairs to match. Both reports are included in the R44 ZIP. The older R42/R43
+trajectory reports remain in their frozen release; they were not rerun for R44.
 The full historical trajectory suite was not run. Models do not calibrate
 physical tire grip, battery sag or the shape of the photographed mat.
 
-Warnings-enabled OLED/Leonardo builds use **28,664/28,672 bytes flash** and
+Warnings-enabled OLED/Leonardo builds use **28,670/28,672 bytes flash** and
 **1508/2560 bytes static RAM**, without linked malloc/calloc/realloc/free.
 
 Validation toolchain: Arduino AVR Boards 1.8.8, Pololu3piPlus32U4 1.1.3,
@@ -237,7 +252,7 @@ Different compiler/library versions can change resource usage. No library files
 were modified. The compact Pololu-derived font and its MIT notice are embedded
 in the sketch; emitted text renders in uppercase.
 
-No hardware upload or physical R43 test was performed during development.
+No hardware upload or physical R44 test was performed during development.
 Firmware PWM bounds do not establish physical motor/gearbox protection or
 collision prevention. Verify on your track before relying on competition runs.
 

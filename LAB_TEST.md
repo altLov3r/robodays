@@ -18,13 +18,16 @@ contains firmware and test history; it does not upload to the robot automaticall
 
 ## First tests
 
-R43 is an untested map-disagreement candidate; R42 remains the frozen capacity
-baseline. Software checks do not confirm either on this larger mat.
+R44 is an untested crossing-history candidate. R43's map-disagreement caution
+remains; frozen R42/R43 are available for rollback. Software checks do not
+confirm any candidate on this larger mat.
 
 - Recalibrate on the actual mat. Start midway along the long straight, pointing
   along the line and away from crossings. Keep battery placement consistent.
 - Confirm lap 1 covers the entire course before the display counts lap 2.
 - Complete a Safe session before Mid/Beast. Leave the map/line-loss stops enabled.
+- Watch crossing exits: R44 removes an artificial steering-history spike, but
+  the mat still needs a physical test of line alignment and corner transitions.
 - If a stop occurs, record its exact text and displayed error/derivative values.
   Record whether it happened at entry, middle, exit, crossing or an S-bend reversal.
 - Report completion as well as lap time. Software models do not verify this mat.

@@ -108,7 +108,7 @@ inline uint16_t readBatteryMillivolts()
 #include <avr/wdt.h>
 #include "RaceSession.h"
 
-static_assert(RACE_PLANNER_REVISION == 43, "Update both sketch files together.");
+static_assert(RACE_PLANNER_REVISION == 44, "Update both sketch files together.");
 
 using namespace Pololu3piPlus32U4;
 
@@ -904,8 +904,11 @@ __attribute__((noinline)) void followLine(uint32_t now)
     if (sensorValues[i] > 750) { darkCount++; }
   }
   const bool crossing = darkCount >= 4;
+  int16_t error = position - 2000;
   if (crossing)
   {
+    // A crossing has no unique center; retain the last valid optical position.
+    error = lastError;
     if (!darkActive) { darkSince = now; darkActive = true; }
     if (now - darkSince >= 200)
     {
@@ -915,7 +918,6 @@ __attribute__((noinline)) void followLine(uint32_t now)
   }
   else { darkActive = false; }
 
-  const int16_t error = position - 2000;
   // Use acquisition timestamps: ADC and sensor reads can shift within a tick.
   const int32_t slope = static_cast<int32_t>(error - lastError) *
     (Settings::CONTROL_MS * 1000L) / static_cast<int32_t>(sensorElapsed);
@@ -1058,7 +1060,7 @@ void setup()
   ledRed(false);
   ledGreen(false);
   ledYellow(false);
-  showStatus(F("3pi+ R43"), buttonMenu());
+  showStatus(F("3pi+ R44"), buttonMenu());
   lastIdleUpdate = millis() - 500;
   showIdleInfo(millis());
   lastButtonHeld = millis();
