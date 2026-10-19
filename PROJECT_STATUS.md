@@ -97,3 +97,22 @@ software limitations and keep the prior candidate available for comparison.
 - These are scripted controller/storage inputs with pose closure suppressed.
   The next physical test remains the entire learning lap followed by Safe,
   watching crossing exits and recording exact stop, E/D, location and voltage.
+
+## 20 October review: unequal-wheel map boundaries
+
+- Added 18 independent half-count storage-oracle cases in
+  `tests/test_large_map.cpp`. Unequal wheel deltas exercise odd sums of 7/255/999
+  counts around both compactions, the last partial bins and maximum capacity.
+  Final learning closure is prescribed with one wheel moving one count.
+- Every used map bin is known and matches the independent signed fine-bin or
+  pooled peak-magnitude reference within one curvature unit for float/Q3 rounding. Learned
+  length and bin count remain bounded. Planner wrap before/at/after the learned
+  length matches the dense distance oracle, including odd half-count positions.
+- All four focused native executables pass. No firmware defect was reproduced;
+  R44, its tuning and all frozen releases remain unchanged. The prescribed
+  pose/clock isolate storage arithmetic; these cases do not establish closure,
+  reachable physical track length, grip or lap performance.
+- Firmware remains byte-identical to frozen R44: the pinned build is still
+  28670/28672 flash and 1508/2560 static RAM. No paired trajectory rerun needed.
+- Next physical test remains one entire learning lap, then Safe on the large
+  mat; capture exact stop, E/D, voltage and corner/crossing location.

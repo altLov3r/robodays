@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+#include <vector>
 #include "../PololuLineFollower/RaceSession.h"
 
 void record(RaceSession & race, uint16_t counts, int curvature = 0)
@@ -148,12 +149,85 @@ void testPooledSteeringAndExit()
   }
 }
 
+void testUnequalWheelBoundaries()
+{
+  unsigned cases = 0;
+  for (const unsigned chunk : {7u, 255u, 999u})
+  for (const uint32_t lengthTwice : {131071u, 131073u, 262143u, 262145u, 524287u, 524288u})
+  {
+    RaceSession race;
+    race.reset(BEAST, 0);
+    std::vector<int32_t> sums(2048, 0);
+    std::vector<unsigned> weights(2048, 0);
+    uint32_t point = 0;
+    const auto accumulate = [&](unsigned span, int bend)
+    {
+      // Independent half-count oracle: no production splitting or compaction.
+      for (unsigned i = 0; i < span; i++, point++)
+      {
+        sums[point / 256] += bend * 8;
+        weights[point / 256]++;
+      }
+    };
+    for (unsigned frame = 0; point < lengthTwice - 1; frame++)
+    {
+      const unsigned span = std::min<uint32_t>(chunk, lengthTwice - 1 - point);
+      const int bend = frame % 3 == 0 ? 24 : (frame % 3 == 1 ? -12 : 0);
+      const float turn = span * 0.5f * RaceSession::MM_PER_COUNT * bend / 6000;
+      // Storage-only fixture: hold pose and clock, independent of lap estimation.
+      race.x = race.y = 1000;
+      race.heading = 0;
+      race.leftStartZone = race.returnArmed = false;
+      assert(race.update((span + 1) / 2, span / 2, turn, 10, 80, 10) == RaceSession::NO_EVENT);
+      assert(race.fault == RaceSession::NONE);
+      accumulate(span, bend);
+      assert(race.distanceTwice == point);
+    }
+    // Prescribe closure with a final unequal-wheel half count.
+    race.x = -0.01f;
+    race.y = race.heading = 0;
+    race.leftStartZone = race.returnArmed = true;
+    assert(race.update(0, 1, 0, 10, 80, 20) == RaceSession::LAP_FINISHED);
+    accumulate(1, 0);
+    assert(race.fault == RaceSession::NONE && race.mapReady);
+    assert(race.learnedCounts == lengthTwice / 2);
+    assert(race.mapShift == (lengthTwice > 262144 ? 2 : (lengthTwice > 131072 ? 1 : 0)));
+    assert(race.binsUsed == (race.learnedCounts + race.mapBinCounts() - 1) / race.mapBinCounts());
+    for (unsigned bin = 0; bin < race.binsUsed; bin++)
+    {
+      int peak = 0;
+      for (unsigned fine = bin << race.mapShift; fine < (bin + 1) << race.mapShift; fine++)
+      {
+        if (!weights[fine]) { continue; }
+        const int average = sums[fine] / int(weights[fine]) / 8;
+        peak = std::max(peak, abs(average));
+        if (!race.mapShift) { assert(abs(int(race.curves[bin]) - average) <= 1); }
+      }
+      assert(race.curves[bin] != RaceSession::UNKNOWN_CURVE);
+      assert(abs(abs(race.curves[bin]) - peak) <= 1); // Float-to-Q3 rounding allowance.
+    }
+    race.turnVotes = 8;
+    race.speedScaleQ8 = 820;
+    race.speedMmS = 1000;
+    race.filteredCurve = 0;
+    for (const uint32_t distance : {race.learnedCounts - 1, race.learnedCounts, race.learnedCounts + 1})
+    {
+      race.distanceTwice = distance * 2 + 1;
+      assert(race.mapPosition() == distance % race.learnedCounts);
+      assert(race.plannedCruise(true) == densePooledPlan(race));
+    }
+    cases++;
+  }
+  std::cout << "Unequal-wheel half-count storage/wrap: " << cases << " oracle cases pass.\n";
+}
+
 int main()
 {
   testCapacityAndPartialWrap();
   testBothCompactionsAndLimit();
   testIrregularSampleBoundaries();
   testPooledSteeringAndExit();
+  testUnequalWheelBoundaries();
   std::cout << "PASS: fixed 512-byte map, both capacity expansions, 32-bit/partial wrap, "
     "opposite-bend peaks, chunk boundaries, live-yaw steering and bounded full-map fault.\n";
 }
