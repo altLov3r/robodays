@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+.venv/
+build/
+build-*/
+*.elf
+*.hex
+*.o
+*.exe
+.DS_Store

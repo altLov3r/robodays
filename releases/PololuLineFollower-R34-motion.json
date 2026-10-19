@@ -1,0 +1,175 @@
+{
+  "scope": "Eight uncalibrated 10 ms motion cases and one 5 ms command fixture; no physical lap prediction.",
+  "results": {
+    "R33": [
+      {
+        "case": 0,
+        "kind": "straight",
+        "speed": 1493.71,
+        "sensor_sd": 0.139932,
+        "max_offset": 0.365453,
+        "steady_brake": 9,
+        "complete": 1
+      },
+      {
+        "case": 1,
+        "kind": "straight",
+        "speed": 1446.1,
+        "sensor_sd": 0.340068,
+        "max_offset": 1.58548,
+        "steady_brake": 51,
+        "complete": 1
+      },
+      {
+        "case": 2,
+        "kind": "straight",
+        "speed": 1445.91,
+        "sensor_sd": 0.32805,
+        "max_offset": 1.39334,
+        "steady_brake": 54,
+        "complete": 1
+      },
+      {
+        "case": 3,
+        "kind": "straight",
+        "speed": 1289.57,
+        "sensor_sd": 2.2787,
+        "max_offset": 5.74865,
+        "steady_brake": 186,
+        "complete": 1
+      },
+      {
+        "case": 4,
+        "kind": "square",
+        "lap2": 3600,
+        "lap3": 3500,
+        "max_offset": 2.86984,
+        "brake": 42,
+        "complete": 1,
+        "fault": 0
+      },
+      {
+        "case": 5,
+        "kind": "square",
+        "lap2": 3600,
+        "lap3": 3510,
+        "max_offset": 2.79117,
+        "brake": 39,
+        "complete": 1,
+        "fault": 0
+      },
+      {
+        "case": 6,
+        "kind": "square",
+        "lap2": 3710,
+        "lap3": 3560,
+        "max_offset": 3.66323,
+        "brake": 38,
+        "complete": 1,
+        "fault": 0
+      },
+      {
+        "case": 7,
+        "kind": "square",
+        "lap2": 3020,
+        "lap3": 2960,
+        "max_offset": 2.96522,
+        "brake": 3,
+        "complete": 1,
+        "fault": 0
+      },
+      {
+        "case": 8,
+        "kind": "command",
+        "time_ms": 170,
+        "reached_pwm": 302,
+        "complete": 1
+      }
+    ],
+    "current": [
+      {
+        "case": 0,
+        "kind": "straight",
+        "speed": 1493.71,
+        "sensor_sd": 0.139932,
+        "max_offset": 0.365453,
+        "steady_brake": 9,
+        "complete": 1
+      },
+      {
+        "case": 1,
+        "kind": "straight",
+        "speed": 1446.1,
+        "sensor_sd": 0.340068,
+        "max_offset": 1.58548,
+        "steady_brake": 51,
+        "complete": 1
+      },
+      {
+        "case": 2,
+        "kind": "straight",
+        "speed": 1445.91,
+        "sensor_sd": 0.32805,
+        "max_offset": 1.39334,
+        "steady_brake": 54,
+        "complete": 1
+      },
+      {
+        "case": 3,
+        "kind": "straight",
+        "speed": 1288.23,
+        "sensor_sd": 2.32839,
+        "max_offset": 5.77736,
+        "steady_brake": 187,
+        "complete": 1
+      },
+      {
+        "case": 4,
+        "kind": "square",
+        "lap2": 3600,
+        "lap3": 3500,
+        "max_offset": 2.8768,
+        "brake": 42,
+        "complete": 1,
+        "fault": 0
+      },
+      {
+        "case": 5,
+        "kind": "square",
+        "lap2": 3600,
+        "lap3": 3510,
+        "max_offset": 2.7414,
+        "brake": 41,
+        "complete": 1,
+        "fault": 0
+      },
+      {
+        "case": 6,
+        "kind": "square",
+        "lap2": 3690,
+        "lap3": 3570,
+        "max_offset": 3.3734,
+        "brake": 34,
+        "complete": 1,
+        "fault": 0
+      },
+      {
+        "case": 7,
+        "kind": "square",
+        "lap2": 3020,
+        "lap3": 2960,
+        "max_offset": 2.96522,
+        "brake": 3,
+        "complete": 1,
+        "fault": 0
+      },
+      {
+        "case": 8,
+        "kind": "command",
+        "time_ms": 70,
+        "reached_pwm": 305,
+        "complete": 1
+      }
+    ]
+  }
+}
