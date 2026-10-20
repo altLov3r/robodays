@@ -1,0 +1,5800 @@
+{
+  "geometry": {
+    "length_mm": 14067.1,
+    "mat_width_mm": 2203.2,
+    "mat_height_mm": 3862.6,
+    "point_spacing_mm": 2,
+    "crossings_mm": [
+      [
+        1623.9,
+        2932.1
+      ],
+      [
+        1250.1,
+        2927.7
+      ]
+    ],
+    "description": "Approximate trace of IMG_5189.jpeg, using the 1.27 m top and 2.48 m right measurement annotations. Not a surveyed course."
+  },
+  "model": "ideal differential drive; five finite-width sensor spots; union of all line strokes; no tyre-slip/grip model",
+  "sensor_forward_offset_mm": 30,
+  "sensor_edge_transition_mm": 4,
+  "seed": "0x51a7",
+  "complete_definition": "Firmware finishes and independently scored route covers at least three circuits minus 6 mm discretization tolerance. Overrun is reported separately by route_fraction.",
+  "sources_sha256": {
+    "R44": {
+      "PololuLineFollower.ino": "9079fb9a7fe6068644c389fa4eb8f92dabb3c46a0c329c6df7091f8adb4a7d73",
+      "RaceSession.h": "48f098a5a3a6e7a8091ef1401faef9fda356ccc5cbcaf16acecfdc81cde964e3"
+    },
+    "candidate": {
+      "PololuLineFollower.ino": "fafef779cd25fc6244c0c463bad475336020b30fc5a5a771bd43a842820a0fce",
+      "RaceSession.h": "1e266dcf32134b437dbcb2a6c697a48d8053f555b4f18d606601b817fde60904"
+    }
+  },
+  "results": {
+    "R44": [
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00071,
+        "travel_mm": 41918.3,
+        "learned_mm": 13987.4,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54870,
+          15975,
+          15805
+        ],
+        "true_lap_ms": [
+          54860,
+          15975,
+          15800
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00028,
+          3.00071
+        ],
+        "crossing_samples": [
+          32,
+          15,
+          14
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.79351,
+          6.18335,
+          6.11048
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          300,
+          313
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          300,
+          313
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 41918.2,
+        "learned_mm": 13987.6,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 88,
+        "estimated_lap_ms": [
+          54870,
+          16055,
+          15930
+        ],
+        "true_lap_ms": [
+          54860,
+          16055,
+          15925
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00028,
+          3.00057
+        ],
+        "crossing_samples": [
+          31,
+          15,
+          13
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          6.36508,
+          6.34949
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          319,
+          332
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          319,
+          332
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 0,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00028,
+        "travel_mm": 41905.2,
+        "learned_mm": 13987.4,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54870,
+          39070,
+          39030
+        ],
+        "true_lap_ms": [
+          54860,
+          39060,
+          39030
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00028,
+          3.00028
+        ],
+        "crossing_samples": [
+          32,
+          25,
+          23
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.79351,
+          6.50692,
+          6.50679
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          55,
+          55
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          55,
+          55
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 0,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00043,
+        "travel_mm": 41905.3,
+        "learned_mm": 13987.6,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 88,
+        "estimated_lap_ms": [
+          54870,
+          39130,
+          39090
+        ],
+        "true_lap_ms": [
+          54860,
+          39120,
+          39090
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00028,
+          3.00043
+        ],
+        "crossing_samples": [
+          31,
+          25,
+          23
+        ],
+        "three_dark_samples": [
+          0,
+          1,
+          2
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          6.71334,
+          6.68501
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          55,
+          55
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          55,
+          55
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 1,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00071,
+        "travel_mm": 41914.7,
+        "learned_mm": 13987.4,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54870,
+          26010,
+          25950
+        ],
+        "true_lap_ms": [
+          54860,
+          26000,
+          25950
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00043,
+          3.00071
+        ],
+        "crossing_samples": [
+          32,
+          16,
+          16
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.79351,
+          6.33231,
+          6.35877
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          115,
+          115
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          115,
+          115
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 1,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 41911.5,
+        "learned_mm": 13987.6,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 88,
+        "estimated_lap_ms": [
+          54870,
+          26040,
+          25960
+        ],
+        "true_lap_ms": [
+          54860,
+          26030,
+          25960
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00057,
+          3.00057
+        ],
+        "crossing_samples": [
+          31,
+          18,
+          18
+        ],
+        "three_dark_samples": [
+          0,
+          1,
+          1
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          6.60928,
+          6.53832
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          115,
+          115
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          115,
+          115
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.75,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00071,
+        "travel_mm": 41920,
+        "learned_mm": 13987.9,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 954,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          47580,
+          15560,
+          15445
+        ],
+        "true_lap_ms": [
+          47570,
+          15560,
+          15440
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00028,
+          3.00071
+        ],
+        "crossing_samples": [
+          26,
+          16,
+          15
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          1
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.83974,
+          6.11345,
+          6.09358
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          286,
+          287
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          286,
+          287
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.75,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00028,
+        "travel_mm": 41913.5,
+        "learned_mm": 13987.1,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 955,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          47580,
+          15675,
+          15550
+        ],
+        "true_lap_ms": [
+          47570,
+          15675,
+          15550
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00028,
+          3.00028
+        ],
+        "crossing_samples": [
+          28,
+          13,
+          11
+        ],
+        "three_dark_samples": [
+          0,
+          1,
+          2
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.87884,
+          6.46142,
+          6.43815
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          314,
+          317
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          314,
+          317
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.15,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00014,
+        "travel_mm": 41929.5,
+        "learned_mm": 13989,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 85,
+        "estimated_lap_ms": [
+          54950,
+          15965,
+          15840
+        ],
+        "true_lap_ms": [
+          54930,
+          15975,
+          15840
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00014,
+          3.00014
+        ],
+        "crossing_samples": [
+          30,
+          14,
+          15
+        ],
+        "three_dark_samples": [
+          0,
+          2,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.83059,
+          5.76708,
+          5.67631
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          328,
+          318
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          328,
+          318
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.15,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 41944.1,
+        "learned_mm": 13987.6,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          54960,
+          16215,
+          16130
+        ],
+        "true_lap_ms": [
+          54950,
+          16215,
+          16125
+        ],
+        "lap_route_fraction": [
+          1,
+          2.00028,
+          3.00057
+        ],
+        "crossing_samples": [
+          30,
+          13,
+          12
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          1
+        ],
+        "caution_samples": [
+          0,
+          13,
+          19
+        ],
+        "max_axle_offset_mm": [
+          4.89009,
+          5.19726,
+          5.73682
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          331,
+          335
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          331,
+          335
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 30,
+          "mismatch": 0.03,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 41920.2,
+        "learned_mm": 13987.4,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          54880,
+          16025,
+          15885
+        ],
+        "true_lap_ms": [
+          54870,
+          16020,
+          15885
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00043,
+          3.00057
+        ],
+        "crossing_samples": [
+          31,
+          15,
+          17
+        ],
+        "three_dark_samples": [
+          1,
+          1,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.77371,
+          6.00097,
+          5.80676
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          311,
+          310
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          311,
+          310
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 30,
+          "mismatch": 0.03,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 41920.8,
+        "learned_mm": 13986.2,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          54960,
+          16110,
+          15975
+        ],
+        "true_lap_ms": [
+          54950,
+          16105,
+          15975
+        ],
+        "lap_route_fraction": [
+          1,
+          2.00043,
+          3.00057
+        ],
+        "crossing_samples": [
+          32,
+          14,
+          13
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.88433,
+          6.41857,
+          6.26338
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          329,
+          333
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          329,
+          333
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 9,
+          "width": 16,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00071,
+        "travel_mm": 41908.7,
+        "learned_mm": 13979.8,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          54820,
+          15925,
+          15805
+        ],
+        "true_lap_ms": [
+          54810,
+          15925,
+          15800
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00028,
+          3.00071
+        ],
+        "crossing_samples": [
+          23,
+          11,
+          10
+        ],
+        "three_dark_samples": [
+          1,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          5.46829,
+          6.35455,
+          6.31097
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          327,
+          328
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          327,
+          328
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 9,
+          "width": 16,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00043,
+        "travel_mm": 41905.5,
+        "learned_mm": 13979.8,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54830,
+          15990,
+          15900
+        ],
+        "true_lap_ms": [
+          54820,
+          15985,
+          15900
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00043,
+          3.00043
+        ],
+        "crossing_samples": [
+          24,
+          12,
+          10
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          5.5299,
+          6.33994,
+          6.23815
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          335,
+          333
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          335,
+          333
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 10,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00171,
+        "travel_mm": 41933.7,
+        "learned_mm": 13987.4,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54870,
+          15970,
+          15800
+        ],
+        "true_lap_ms": [
+          54860,
+          15960,
+          15800
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.001,
+          3.00171
+        ],
+        "crossing_samples": [
+          32,
+          7,
+          6
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.79351,
+          5.98538,
+          5.95965
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          310,
+          330
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          310,
+          330
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 10,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00142,
+        "travel_mm": 41930.6,
+        "learned_mm": 13987.6,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 88,
+        "estimated_lap_ms": [
+          54870,
+          16060,
+          15930
+        ],
+        "true_lap_ms": [
+          54860,
+          16050,
+          15930
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.001,
+          3.00142
+        ],
+        "crossing_samples": [
+          31,
+          7,
+          8
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          6.40381,
+          5.86328
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          335,
+          335
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          335,
+          335
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 0.9,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00071,
+        "travel_mm": 37669.3,
+        "learned_mm": 12572.7,
+        "bins": 351,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          49640,
+          15060,
+          14920
+        ],
+        "true_lap_ms": [
+          49620,
+          15070,
+          14915
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00028,
+          3.00071
+        ],
+        "crossing_samples": [
+          31,
+          17,
+          16
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          1
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          5.18341,
+          6.78516,
+          6.76298
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          304,
+          305
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          304,
+          305
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 0.9,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00028,
+        "travel_mm": 37664.7,
+        "learned_mm": 12571,
+        "bins": 351,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          49630,
+          15095,
+          15005
+        ],
+        "true_lap_ms": [
+          49620,
+          15095,
+          15005
+        ],
+        "lap_route_fraction": [
+          1,
+          2.00028,
+          3.00028
+        ],
+        "crossing_samples": [
+          31,
+          16,
+          15
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          2
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          5.26106,
+          6.35801,
+          6.33155
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          335,
+          328
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          335,
+          328
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1.1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00043,
+        "travel_mm": 46162.7,
+        "learned_mm": 15400.3,
+        "bins": 429,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 825,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          60120,
+          16785,
+          16700
+        ],
+        "true_lap_ms": [
+          60110,
+          16785,
+          16695
+        ],
+        "lap_route_fraction": [
+          1,
+          2.00014,
+          3.00043
+        ],
+        "crossing_samples": [
+          32,
+          14,
+          15
+        ],
+        "three_dark_samples": [
+          0,
+          1,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.5187,
+          5.5024,
+          5.45646
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          335,
+          308
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          335,
+          308
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1.1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 46164.8,
+        "learned_mm": 15402,
+        "bins": 429,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          60120,
+          16925,
+          16775
+        ],
+        "true_lap_ms": [
+          60100,
+          16930,
+          16775
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00057,
+          3.00057
+        ],
+        "crossing_samples": [
+          30,
+          14,
+          15
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.65707,
+          6.02668,
+          5.92733
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          335,
+          335
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          335,
+          335
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 2
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00014,
+        "travel_mm": 41915.9,
+        "learned_mm": 13987.1,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          54870,
+          15980,
+          15870
+        ],
+        "true_lap_ms": [
+          54860,
+          15980,
+          15870
+        ],
+        "lap_route_fraction": [
+          1,
+          2.00014,
+          3.00014
+        ],
+        "crossing_samples": [
+          31,
+          14,
+          15
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.80551,
+          5.47471,
+          5.48525
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          307,
+          310
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          307,
+          310
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 2
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 41923.3,
+        "learned_mm": 13987.6,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 825,
+        "track_width_mm": 88,
+        "estimated_lap_ms": [
+          54870,
+          16095,
+          15915
+        ],
+        "true_lap_ms": [
+          54860,
+          16090,
+          15915
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00057,
+          3.00057
+        ],
+        "crossing_samples": [
+          30,
+          12,
+          13
+        ],
+        "three_dark_samples": [
+          0,
+          2,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.83866,
+          6.28105,
+          5.99268
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          334,
+          327
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          334,
+          327
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1.001,
+          "sensor_delay_ms": 0
+        },
+        "complete": false,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 2,
+        "route_fraction": 2.99773,
+        "travel_mm": 41873.2,
+        "learned_mm": 13974.2,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 825,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54820,
+          15945,
+          15865
+        ],
+        "true_lap_ms": [
+          54850,
+          15925,
+          0
+        ],
+        "lap_route_fraction": [
+          0.999147,
+          1.99844,
+          2.99773
+        ],
+        "crossing_samples": [
+          32,
+          15,
+          14
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.79351,
+          6.15287,
+          6.14917
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          310,
+          323
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          310,
+          323
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1.001,
+          "sensor_delay_ms": 0
+        },
+        "complete": false,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 2,
+        "route_fraction": 2.99787,
+        "travel_mm": 41876.4,
+        "learned_mm": 13974.5,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 825,
+        "track_width_mm": 88,
+        "estimated_lap_ms": [
+          54820,
+          16050,
+          15975
+        ],
+        "true_lap_ms": [
+          54850,
+          16030,
+          0
+        ],
+        "lap_route_fraction": [
+          0.999147,
+          1.99829,
+          2.99787
+        ],
+        "crossing_samples": [
+          31,
+          14,
+          13
+        ],
+        "three_dark_samples": [
+          0,
+          1,
+          2
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          6.58385,
+          6.66697
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          331,
+          335
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          331,
+          335
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1.005,
+          "sensor_delay_ms": 0
+        },
+        "complete": false,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 2,
+        "route_fraction": 2.98749,
+        "travel_mm": 41763.1,
+        "learned_mm": 13924.8,
+        "bins": 388,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 825,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54630,
+          16110,
+          16835
+        ],
+        "true_lap_ms": [
+          54765,
+          16060,
+          0
+        ],
+        "lap_route_fraction": [
+          0.995593,
+          1.99161,
+          2.98749
+        ],
+        "crossing_samples": [
+          32,
+          15,
+          15
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          2
+        ],
+        "caution_samples": [
+          0,
+          0,
+          290
+        ],
+        "max_axle_offset_mm": [
+          4.79351,
+          6.07689,
+          4.47295
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          294,
+          306
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          294,
+          306
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1.005,
+          "sensor_delay_ms": 0
+        },
+        "complete": false,
+        "stop": "Map mismatch",
+        "estimated_laps": 2,
+        "true_laps": 2,
+        "route_fraction": 2.49247,
+        "travel_mm": 34825.5,
+        "learned_mm": 13925.1,
+        "bins": 388,
+        "map_shift": 0,
+        "fault": 3,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54630,
+          16210,
+          0
+        ],
+        "true_lap_ms": [
+          54765,
+          16160,
+          0
+        ],
+        "lap_route_fraction": [
+          0.995735,
+          1.99133,
+          0
+        ],
+        "crossing_samples": [
+          31,
+          16,
+          0
+        ],
+        "three_dark_samples": [
+          0,
+          1,
+          5
+        ],
+        "caution_samples": [
+          0,
+          0,
+          290
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          6.62749,
+          4.09714
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          335,
+          108
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          335,
+          0
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 0.995,
+          "sensor_delay_ms": 0
+        },
+        "complete": false,
+        "stop": "Map mismatch",
+        "estimated_laps": 2,
+        "true_laps": 2,
+        "route_fraction": 2.51464,
+        "travel_mm": 35202.8,
+        "learned_mm": 14049.6,
+        "bins": 392,
+        "map_shift": 0,
+        "fault": 3,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          55110,
+          15980,
+          0
+        ],
+        "true_lap_ms": [
+          54860,
+          16125,
+          0
+        ],
+        "lap_route_fraction": [
+          1.00455,
+          2.00896,
+          0
+        ],
+        "crossing_samples": [
+          32,
+          14,
+          15
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          3
+        ],
+        "caution_samples": [
+          0,
+          0,
+          70
+        ],
+        "max_axle_offset_mm": [
+          4.79351,
+          4.25584,
+          5.51442
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          332,
+          331
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          332,
+          331
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 0.995,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.01393,
+        "travel_mm": 42199.5,
+        "learned_mm": 14049.9,
+        "bins": 392,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          55110,
+          16090,
+          16910
+        ],
+        "true_lap_ms": [
+          54860,
+          16230,
+          16860
+        ],
+        "lap_route_fraction": [
+          1.00455,
+          2.00924,
+          3.01393
+        ],
+        "crossing_samples": [
+          31,
+          14,
+          12
+        ],
+        "three_dark_samples": [
+          0,
+          1,
+          3
+        ],
+        "caution_samples": [
+          0,
+          0,
+          148
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          4.49962,
+          4.2968
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          332,
+          327
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          332,
+          327
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0.005,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00028,
+        "travel_mm": 41910.5,
+        "learned_mm": 13987.4,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54870,
+          16040,
+          15895
+        ],
+        "true_lap_ms": [
+          54860,
+          16040,
+          15895
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00028,
+          3.00028
+        ],
+        "crossing_samples": [
+          32,
+          14,
+          16
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.79351,
+          6.17899,
+          6.24444
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          324,
+          325
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          324,
+          325
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0.005,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00028,
+        "travel_mm": 41911.4,
+        "learned_mm": 13987.6,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 88,
+        "estimated_lap_ms": [
+          54870,
+          16080,
+          16015
+        ],
+        "true_lap_ms": [
+          54860,
+          16080,
+          16015
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00014,
+          3.00028
+        ],
+        "crossing_samples": [
+          31,
+          14,
+          14
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          6.58394,
+          6.60338
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          335,
+          335
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          335,
+          335
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": -0.005,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 41948.9,
+        "learned_mm": 13987.4,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54870,
+          15985,
+          15860
+        ],
+        "true_lap_ms": [
+          54860,
+          15985,
+          15855
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00028,
+          3.00057
+        ],
+        "crossing_samples": [
+          32,
+          17,
+          15
+        ],
+        "three_dark_samples": [
+          0,
+          1,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.79351,
+          4.5178,
+          4.44844
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          330,
+          295
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          330,
+          295
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": -0.005,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00071,
+        "travel_mm": 41938.8,
+        "learned_mm": 13987.6,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 88,
+        "estimated_lap_ms": [
+          54870,
+          16070,
+          15955
+        ],
+        "true_lap_ms": [
+          54860,
+          16070,
+          15950
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00043,
+          3.00071
+        ],
+        "crossing_samples": [
+          31,
+          15,
+          14
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          4.94757,
+          4.82885
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          334,
+          333
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          334,
+          333
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0.01,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00028,
+        "travel_mm": 41926.3,
+        "learned_mm": 13987.4,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54870,
+          16290,
+          16130
+        ],
+        "true_lap_ms": [
+          54860,
+          16290,
+          16130
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00028,
+          3.00028
+        ],
+        "crossing_samples": [
+          32,
+          16,
+          14
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          1
+        ],
+        "caution_samples": [
+          0,
+          47,
+          30
+        ],
+        "max_axle_offset_mm": [
+          4.79351,
+          5.92295,
+          6.02532
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          316,
+          320
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          316,
+          320
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0.01,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00085,
+        "travel_mm": 41921.1,
+        "learned_mm": 13987.6,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 88,
+        "estimated_lap_ms": [
+          54870,
+          16190,
+          16045
+        ],
+        "true_lap_ms": [
+          54860,
+          16185,
+          16040
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00057,
+          3.00085
+        ],
+        "crossing_samples": [
+          31,
+          16,
+          14
+        ],
+        "three_dark_samples": [
+          0,
+          1,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          6.60423,
+          6.58822
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          335,
+          334
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          335,
+          334
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": -0.01,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 42020.9,
+        "learned_mm": 13987.4,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54870,
+          16165,
+          16025
+        ],
+        "true_lap_ms": [
+          54860,
+          16165,
+          16020
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00014,
+          3.00057
+        ],
+        "crossing_samples": [
+          32,
+          13,
+          14
+        ],
+        "three_dark_samples": [
+          0,
+          1,
+          1
+        ],
+        "caution_samples": [
+          0,
+          6,
+          7
+        ],
+        "max_axle_offset_mm": [
+          4.79351,
+          4.23253,
+          4.20903
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          320,
+          301
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          320,
+          301
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": -0.01,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00028,
+        "travel_mm": 41968.8,
+        "learned_mm": 13987.6,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 88,
+        "estimated_lap_ms": [
+          54870,
+          16165,
+          16100
+        ],
+        "true_lap_ms": [
+          54860,
+          16165,
+          16100
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00028,
+          3.00028
+        ],
+        "crossing_samples": [
+          31,
+          16,
+          12
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          9,
+          15
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          4.47006,
+          4.46371
+        ],
+        "max_running_common_drop_pwm": [
+          15,
+          333,
+          319
+        ],
+        "max_crossing_common_drop_pwm": [
+          15,
+          333,
+          319
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "candidate": [
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 41919.2,
+        "learned_mm": 13986.8,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          54800,
+          15620,
+          15510
+        ],
+        "true_lap_ms": [
+          54790,
+          15620,
+          15505
+        ],
+        "lap_route_fraction": [
+          1,
+          2.00014,
+          3.00057
+        ],
+        "crossing_samples": [
+          28,
+          12,
+          12
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          1
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.81271,
+          6.12427,
+          6.0036
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          43,
+          45
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          2,
+          1
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 41918.8,
+        "learned_mm": 13987.1,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54800,
+          15690,
+          15570
+        ],
+        "true_lap_ms": [
+          54790,
+          15685,
+          15570
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00043,
+          3.00057
+        ],
+        "crossing_samples": [
+          27,
+          12,
+          11
+        ],
+        "three_dark_samples": [
+          1,
+          0,
+          1
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          6.38194,
+          6.22097
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          41,
+          39
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          1,
+          2
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 0,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00014,
+        "travel_mm": 41903.8,
+        "learned_mm": 13986.8,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          54800,
+          38830,
+          38810
+        ],
+        "true_lap_ms": [
+          54790,
+          38830,
+          38810
+        ],
+        "lap_route_fraction": [
+          1,
+          2.00014,
+          3.00014
+        ],
+        "crossing_samples": [
+          28,
+          20,
+          18
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.81271,
+          6.45137,
+          6.4477
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          3,
+          3
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          0,
+          0
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 0,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 41909.5,
+        "learned_mm": 13987.1,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54800,
+          38910,
+          38880
+        ],
+        "true_lap_ms": [
+          54790,
+          38900,
+          38870
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00028,
+          3.00057
+        ],
+        "crossing_samples": [
+          27,
+          18,
+          17
+        ],
+        "three_dark_samples": [
+          1,
+          1,
+          2
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          6.72702,
+          6.7208
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          3,
+          3
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          0,
+          0
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 1,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 41913.1,
+        "learned_mm": 13986.8,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          54800,
+          25680,
+          25610
+        ],
+        "true_lap_ms": [
+          54790,
+          25670,
+          25610
+        ],
+        "lap_route_fraction": [
+          1,
+          2.00028,
+          3.00057
+        ],
+        "crossing_samples": [
+          28,
+          13,
+          12
+        ],
+        "three_dark_samples": [
+          0,
+          1,
+          1
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.81271,
+          6.32411,
+          6.32021
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          3,
+          3
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          0,
+          0
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 1,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00085,
+        "travel_mm": 41915.8,
+        "learned_mm": 13987.1,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54800,
+          25680,
+          25610
+        ],
+        "true_lap_ms": [
+          54790,
+          25670,
+          25600
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00043,
+          3.00085
+        ],
+        "crossing_samples": [
+          27,
+          12,
+          12
+        ],
+        "three_dark_samples": [
+          1,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          6.5998,
+          6.51201
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          3,
+          3
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          0,
+          0
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.75,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 41917.1,
+        "learned_mm": 13987.9,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 955,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          47520,
+          15270,
+          15145
+        ],
+        "true_lap_ms": [
+          47510,
+          15265,
+          15145
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00057,
+          3.00057
+        ],
+        "crossing_samples": [
+          24,
+          11,
+          11
+        ],
+        "three_dark_samples": [
+          0,
+          1,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.86513,
+          6.13914,
+          6.19342
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          2,
+          9
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          1,
+          2
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.75,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00071,
+        "travel_mm": 41918.4,
+        "learned_mm": 13987.1,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 955,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          47520,
+          15370,
+          15255
+        ],
+        "true_lap_ms": [
+          47510,
+          15370,
+          15250
+        ],
+        "lap_route_fraction": [
+          1,
+          2.00014,
+          3.00071
+        ],
+        "crossing_samples": [
+          24,
+          10,
+          10
+        ],
+        "three_dark_samples": [
+          0,
+          1,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.87884,
+          6.50855,
+          6.48972
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          41,
+          45
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          2,
+          2
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.15,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 41932.5,
+        "learned_mm": 13989.3,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          54890,
+          15665,
+          15530
+        ],
+        "true_lap_ms": [
+          54870,
+          15675,
+          15525
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00028,
+          3.00057
+        ],
+        "crossing_samples": [
+          28,
+          12,
+          12
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          1
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.86458,
+          5.8538,
+          5.79583
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          44,
+          49
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          1,
+          1
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.15,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00071,
+        "travel_mm": 41944.9,
+        "learned_mm": 13988.5,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54900,
+          15765,
+          15740
+        ],
+        "true_lap_ms": [
+          54880,
+          15775,
+          15735
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00028,
+          3.00071
+        ],
+        "crossing_samples": [
+          28,
+          12,
+          12
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          16
+        ],
+        "max_axle_offset_mm": [
+          4.89009,
+          5.19782,
+          5.00818
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          56,
+          66
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          1,
+          1
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 30,
+          "mismatch": 0.03,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00071,
+        "travel_mm": 41919,
+        "learned_mm": 13987.6,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54820,
+          15665,
+          15530
+        ],
+        "true_lap_ms": [
+          54810,
+          15660,
+          15530
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00043,
+          3.00071
+        ],
+        "crossing_samples": [
+          28,
+          13,
+          12
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.79964,
+          6.09397,
+          6.02309
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          49,
+          36
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          2,
+          2
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 30,
+          "mismatch": 0.03,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00043,
+        "travel_mm": 41919,
+        "learned_mm": 13986.5,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          54960,
+          15740,
+          15620
+        ],
+        "true_lap_ms": [
+          54950,
+          15740,
+          15615
+        ],
+        "lap_route_fraction": [
+          1,
+          2.00014,
+          3.00043
+        ],
+        "crossing_samples": [
+          28,
+          11,
+          12
+        ],
+        "three_dark_samples": [
+          0,
+          1,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.88433,
+          6.41713,
+          6.30767
+        ],
+        "max_running_common_drop_pwm": [
+          70,
+          42,
+          36
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          1,
+          2
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 9,
+          "width": 16,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 41905.9,
+        "learned_mm": 13979.5,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54770,
+          15610,
+          15495
+        ],
+        "true_lap_ms": [
+          54760,
+          15610,
+          15490
+        ],
+        "lap_route_fraction": [
+          1,
+          2.00028,
+          3.00057
+        ],
+        "crossing_samples": [
+          21,
+          10,
+          9
+        ],
+        "three_dark_samples": [
+          1,
+          0,
+          2
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          5.47375,
+          6.31249,
+          6.4002
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          39,
+          51
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          1,
+          1
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 9,
+          "width": 16,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 41906,
+        "learned_mm": 13981.2,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 88,
+        "estimated_lap_ms": [
+          54780,
+          15665,
+          15545
+        ],
+        "true_lap_ms": [
+          54760,
+          15675,
+          15540
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00028,
+          3.00057
+        ],
+        "crossing_samples": [
+          23,
+          9,
+          11
+        ],
+        "three_dark_samples": [
+          0,
+          1,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          5.5299,
+          6.37363,
+          6.29789
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          56,
+          62
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          1,
+          1
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 10,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 41917.7,
+        "learned_mm": 13986.8,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          54800,
+          15610,
+          15490
+        ],
+        "true_lap_ms": [
+          54790,
+          15610,
+          15490
+        ],
+        "lap_route_fraction": [
+          1,
+          2.00043,
+          3.00057
+        ],
+        "crossing_samples": [
+          28,
+          4,
+          8
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.81271,
+          6.02959,
+          6.01671
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          25,
+          41
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          3,
+          3
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 10,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00085,
+        "travel_mm": 41923.2,
+        "learned_mm": 13987.1,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54800,
+          15700,
+          15560
+        ],
+        "true_lap_ms": [
+          54790,
+          15700,
+          15550
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00071,
+          3.00085
+        ],
+        "crossing_samples": [
+          27,
+          4,
+          6
+        ],
+        "three_dark_samples": [
+          1,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          6.40732,
+          5.97044
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          66,
+          65
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          2,
+          2
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 0.9,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00028,
+        "travel_mm": 37663.6,
+        "learned_mm": 12571.6,
+        "bins": 351,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          49570,
+          14745,
+          14625
+        ],
+        "true_lap_ms": [
+          49560,
+          14745,
+          14625
+        ],
+        "lap_route_fraction": [
+          1,
+          2.00028,
+          3.00028
+        ],
+        "crossing_samples": [
+          28,
+          12,
+          13
+        ],
+        "three_dark_samples": [
+          0,
+          1,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          5.17146,
+          6.78738,
+          6.76335
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          27,
+          33
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          2,
+          2
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 0.9,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00028,
+        "travel_mm": 37666.4,
+        "learned_mm": 12571,
+        "bins": 351,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          49570,
+          14765,
+          14645
+        ],
+        "true_lap_ms": [
+          49560,
+          14765,
+          14645
+        ],
+        "lap_route_fraction": [
+          1,
+          2.00014,
+          3.00028
+        ],
+        "crossing_samples": [
+          28,
+          13,
+          12
+        ],
+        "three_dark_samples": [
+          1,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          5.26106,
+          6.33784,
+          6.30824
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          51,
+          41
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          2,
+          2
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1.1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00043,
+        "travel_mm": 46163.5,
+        "learned_mm": 15400.1,
+        "bins": 429,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          60050,
+          16475,
+          16360
+        ],
+        "true_lap_ms": [
+          60040,
+          16475,
+          16355
+        ],
+        "lap_route_fraction": [
+          1,
+          2.00028,
+          3.00043
+        ],
+        "crossing_samples": [
+          28,
+          13,
+          12
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.52447,
+          5.43718,
+          5.44624
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          33,
+          29
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          1,
+          2
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1.1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00043,
+        "travel_mm": 46161.4,
+        "learned_mm": 15401.2,
+        "bins": 429,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          60050,
+          16570,
+          16455
+        ],
+        "true_lap_ms": [
+          60040,
+          16570,
+          16450
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00014,
+          3.00043
+        ],
+        "crossing_samples": [
+          27,
+          12,
+          11
+        ],
+        "three_dark_samples": [
+          1,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.65707,
+          6.0282,
+          5.99012
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          33,
+          35
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          1,
+          1
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 2
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00043,
+        "travel_mm": 41919.1,
+        "learned_mm": 13988.2,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          54810,
+          15630,
+          15520
+        ],
+        "true_lap_ms": [
+          54790,
+          15640,
+          15520
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00028,
+          3.00043
+        ],
+        "crossing_samples": [
+          28,
+          14,
+          13
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.88813,
+          5.47331,
+          5.47847
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          41,
+          46
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          2,
+          2
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 2
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00014,
+        "travel_mm": 41915.3,
+        "learned_mm": 13987.4,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54810,
+          15695,
+          15580
+        ],
+        "true_lap_ms": [
+          54800,
+          15695,
+          15580
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00014,
+          3.00014
+        ],
+        "crossing_samples": [
+          28,
+          12,
+          11
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.83866,
+          6.31816,
+          6.23522
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          42,
+          45
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          1,
+          2
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1.001,
+          "sensor_delay_ms": 0
+        },
+        "complete": false,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 2,
+        "route_fraction": 2.99787,
+        "travel_mm": 41876.6,
+        "learned_mm": 13973.9,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          54750,
+          15640,
+          15545
+        ],
+        "true_lap_ms": [
+          54785,
+          15610,
+          0
+        ],
+        "lap_route_fraction": [
+          0.999147,
+          1.99858,
+          2.99787
+        ],
+        "crossing_samples": [
+          28,
+          13,
+          14
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.81271,
+          6.16304,
+          6.0907
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          37,
+          22
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          2,
+          2
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1.001,
+          "sensor_delay_ms": 0
+        },
+        "complete": false,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 2,
+        "route_fraction": 2.99787,
+        "travel_mm": 41876.6,
+        "learned_mm": 13974.2,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54750,
+          15720,
+          15630
+        ],
+        "true_lap_ms": [
+          54780,
+          15700,
+          0
+        ],
+        "lap_route_fraction": [
+          0.999147,
+          1.99844,
+          2.99787
+        ],
+        "crossing_samples": [
+          27,
+          12,
+          12
+        ],
+        "three_dark_samples": [
+          1,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          6.57025,
+          6.58127
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          57,
+          30
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          2,
+          1
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1.005,
+          "sensor_delay_ms": 0
+        },
+        "complete": false,
+        "stop": "Map mismatch",
+        "estimated_laps": 2,
+        "true_laps": 2,
+        "route_fraction": 2.79244,
+        "travel_mm": 39025.1,
+        "learned_mm": 13924.5,
+        "bins": 388,
+        "map_shift": 0,
+        "fault": 3,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          54560,
+          15790,
+          0
+        ],
+        "true_lap_ms": [
+          54695,
+          15740,
+          0
+        ],
+        "lap_route_fraction": [
+          0.995593,
+          1.99147,
+          0
+        ],
+        "crossing_samples": [
+          28,
+          14,
+          12
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          2
+        ],
+        "caution_samples": [
+          0,
+          0,
+          287
+        ],
+        "max_axle_offset_mm": [
+          4.81271,
+          5.89123,
+          4.71969
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          43,
+          168
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          1,
+          1
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 1.005,
+          "sensor_delay_ms": 0
+        },
+        "complete": false,
+        "stop": "Map mismatch",
+        "estimated_laps": 2,
+        "true_laps": 2,
+        "route_fraction": 2.4919,
+        "travel_mm": 34819.6,
+        "learned_mm": 13924.8,
+        "bins": 388,
+        "map_shift": 0,
+        "fault": 3,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          54560,
+          15850,
+          0
+        ],
+        "true_lap_ms": [
+          54695,
+          15800,
+          0
+        ],
+        "lap_route_fraction": [
+          0.995593,
+          1.99119,
+          0
+        ],
+        "crossing_samples": [
+          27,
+          13,
+          0
+        ],
+        "three_dark_samples": [
+          1,
+          0,
+          3
+        ],
+        "caution_samples": [
+          0,
+          0,
+          281
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          6.51423,
+          4.12332
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          52,
+          137
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          1,
+          0
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 0.995,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.01393,
+        "travel_mm": 42206.3,
+        "learned_mm": 14049.1,
+        "bins": 392,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          55040,
+          15650,
+          16190
+        ],
+        "true_lap_ms": [
+          54790,
+          15790,
+          16140
+        ],
+        "lap_route_fraction": [
+          1.00455,
+          2.00938,
+          3.01393
+        ],
+        "crossing_samples": [
+          28,
+          11,
+          12
+        ],
+        "three_dark_samples": [
+          0,
+          2,
+          4
+        ],
+        "caution_samples": [
+          0,
+          0,
+          61
+        ],
+        "max_axle_offset_mm": [
+          4.81271,
+          4.1641,
+          5.55628
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          31,
+          163
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          1,
+          2
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0,
+          "gyro_scale": 0.995,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.01379,
+        "travel_mm": 42193.7,
+        "learned_mm": 14049.4,
+        "bins": 392,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 825,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          55040,
+          15710,
+          16065
+        ],
+        "true_lap_ms": [
+          54790,
+          15855,
+          16010
+        ],
+        "lap_route_fraction": [
+          1.00455,
+          2.0091,
+          3.01379
+        ],
+        "crossing_samples": [
+          27,
+          12,
+          12
+        ],
+        "three_dark_samples": [
+          1,
+          0,
+          3
+        ],
+        "caution_samples": [
+          0,
+          0,
+          67
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          4.48322,
+          4.1056
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          26,
+          92
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          1,
+          1
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0.005,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 41914.5,
+        "learned_mm": 13986.8,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          54800,
+          15715,
+          15580
+        ],
+        "true_lap_ms": [
+          54790,
+          15715,
+          15575
+        ],
+        "lap_route_fraction": [
+          1,
+          2.00043,
+          3.00057
+        ],
+        "crossing_samples": [
+          28,
+          12,
+          13
+        ],
+        "three_dark_samples": [
+          0,
+          1,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.81271,
+          6.14999,
+          6.1331
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          40,
+          31
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          2,
+          2
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0.005,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00071,
+        "travel_mm": 41916.7,
+        "learned_mm": 13987.1,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54800,
+          15760,
+          15645
+        ],
+        "true_lap_ms": [
+          54790,
+          15760,
+          15640
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00028,
+          3.00071
+        ],
+        "crossing_samples": [
+          27,
+          12,
+          12
+        ],
+        "three_dark_samples": [
+          1,
+          0,
+          1
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          6.61309,
+          6.5594
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          60,
+          63
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          2,
+          1
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": -0.005,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00043,
+        "travel_mm": 41948.9,
+        "learned_mm": 13986.8,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          54800,
+          15650,
+          15530
+        ],
+        "true_lap_ms": [
+          54790,
+          15645,
+          15530
+        ],
+        "lap_route_fraction": [
+          1,
+          2.00043,
+          3.00043
+        ],
+        "crossing_samples": [
+          28,
+          12,
+          12
+        ],
+        "three_dark_samples": [
+          0,
+          0,
+          1
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.81271,
+          4.80768,
+          4.3442
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          49,
+          45
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          2,
+          1
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": -0.005,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00043,
+        "travel_mm": 41936.6,
+        "learned_mm": 13987.1,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54800,
+          15715,
+          15600
+        ],
+        "true_lap_ms": [
+          54790,
+          15710,
+          15600
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00043,
+          3.00043
+        ],
+        "crossing_samples": [
+          27,
+          11,
+          12
+        ],
+        "three_dark_samples": [
+          1,
+          1,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          4.92376,
+          4.77215
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          27,
+          27
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          1,
+          2
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0.01,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00043,
+        "travel_mm": 41928.3,
+        "learned_mm": 13986.8,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          54800,
+          15955,
+          15825
+        ],
+        "true_lap_ms": [
+          54790,
+          15955,
+          15825
+        ],
+        "lap_route_fraction": [
+          1,
+          2.00028,
+          3.00043
+        ],
+        "crossing_samples": [
+          28,
+          12,
+          14
+        ],
+        "three_dark_samples": [
+          0,
+          1,
+          0
+        ],
+        "caution_samples": [
+          0,
+          59,
+          43
+        ],
+        "max_axle_offset_mm": [
+          4.81271,
+          5.87859,
+          5.84961
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          62,
+          109
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          2,
+          2
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": 0.01,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00071,
+        "travel_mm": 41919.6,
+        "learned_mm": 13987.1,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54800,
+          15830,
+          15690
+        ],
+        "true_lap_ms": [
+          54790,
+          15825,
+          15690
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00043,
+          3.00071
+        ],
+        "crossing_samples": [
+          27,
+          12,
+          13
+        ],
+        "three_dark_samples": [
+          1,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          0,
+          0
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          6.63474,
+          6.58867
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          44,
+          35
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          1,
+          1
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": 1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": -0.01,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00057,
+        "travel_mm": 42020.8,
+        "learned_mm": 13986.8,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 827,
+        "track_width_mm": 86,
+        "estimated_lap_ms": [
+          54800,
+          15835,
+          15780
+        ],
+        "true_lap_ms": [
+          54790,
+          15830,
+          15780
+        ],
+        "lap_route_fraction": [
+          1,
+          2.00057,
+          3.00057
+        ],
+        "crossing_samples": [
+          28,
+          11,
+          12
+        ],
+        "three_dark_samples": [
+          0,
+          1,
+          13
+        ],
+        "caution_samples": [
+          0,
+          6,
+          14
+        ],
+        "max_axle_offset_mm": [
+          4.81271,
+          4.15479,
+          4.21157
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          52,
+          80
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          2,
+          2
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": 2,
+          "direction": -1,
+          "gain": 3.25,
+          "response": 0.25,
+          "pitch": 10,
+          "width": 20,
+          "noise": 0,
+          "mismatch": 0,
+          "period": 5,
+          "scale": 1,
+          "replay_encoder_bias": -0.01,
+          "gyro_scale": 1,
+          "sensor_delay_ms": 0
+        },
+        "complete": true,
+        "stop": "Finished",
+        "estimated_laps": 3,
+        "true_laps": 3,
+        "route_fraction": 3.00043,
+        "travel_mm": 41970.4,
+        "learned_mm": 13987.1,
+        "bins": 390,
+        "map_shift": 0,
+        "fault": 0,
+        "noisy_learning": false,
+        "scale_q8": 826,
+        "track_width_mm": 87,
+        "estimated_lap_ms": [
+          54800,
+          15785,
+          15700
+        ],
+        "true_lap_ms": [
+          54790,
+          15785,
+          15695
+        ],
+        "lap_route_fraction": [
+          1.00014,
+          2.00014,
+          3.00043
+        ],
+        "crossing_samples": [
+          27,
+          12,
+          12
+        ],
+        "three_dark_samples": [
+          1,
+          0,
+          0
+        ],
+        "caution_samples": [
+          0,
+          2,
+          6
+        ],
+        "max_axle_offset_mm": [
+          4.851,
+          4.48114,
+          4.47176
+        ],
+        "max_running_common_drop_pwm": [
+          3,
+          47,
+          87
+        ],
+        "max_crossing_common_drop_pwm": [
+          0,
+          1,
+          1
+        ],
+        "max_crossing_common_boost_pwm": [
+          0,
+          0,
+          0
+        ]
+      }
+    ]
+  }
+}

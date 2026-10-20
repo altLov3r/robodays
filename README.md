@@ -60,6 +60,12 @@ setup. Record physical tests in [LAB_TEST.md](LAB_TEST.md).
 
 ## Validation and limits
 
+- A new [photo-traced course model](reports/photo-track-r45/README.md) includes
+  both crossings and independently checks physical route coverage. Across 72
+  paired diagnostic runs, R45 completes the nominal course in both directions
+  and reduces its largest nominal crossing drop from 332 to 2 PWM. Injected
+  gyro scale error still produces lap-anchor drift, premature finishes or Map
+  mismatch. All failures are retained; these are not physical speed/grip results.
 - R44/R45 paired checks cover **30 replay control fixtures** at 5/10 ms.
   R44 fails all 30; R45 passes all. Wrong-way turn cases fall from eight to zero,
   canceled crossing turns from eight to zero, and maximum routine crossing drop

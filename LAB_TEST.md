@@ -30,6 +30,11 @@ confirm any candidate on this larger mat.
 - Recalibrate on the actual mat. Start midway along the long straight, pointing
   along the line and away from crossings. Keep battery placement consistent.
 - Confirm lap 1 covers the entire course before the display counts lap 2.
+- Watch whether successive estimated lap changes occur at the same physical
+  start point. The new approximate photo-course model can reproduce Map mismatch
+  from gyro-scale/lap-anchor drift while still tracking the line. This is a
+  sensitivity result, not a confirmed physical diagnosis; see
+  `reports/photo-track-r45/README.md`.
 - Complete a Safe session before Mid/Beast. Leave the map/line-loss stops enabled.
 - Watch overlaps: speed should stay bounded by entry speed and mapped braking,
   without the previous snap to 65 PWM. Watch the first spiral after each crossing.

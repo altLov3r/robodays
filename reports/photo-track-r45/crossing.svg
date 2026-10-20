@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="450" viewBox="0 0 860 450">
+<rect width="860" height="450" fill="white"/>
+<text x="70" y="25" font-size="19">First replay crossing: delivered wheel-average PWM (model)</text>
+<path d="M70 60 V360 H790 M370 60 V360" fill="none" stroke="#bbb"/>
+<text x="25" y="65">400</text><text x="40" y="365">0</text>
+<text x="65" y="385">-100</text><text x="365" y="385">0</text><text x="765" y="385">140</text>
+<text x="210" y="420">Distance relative to first detected crossing sample (mm)</text>
+<text x="610" y="45" fill="#c03e37">Frozen baseline</text>
+<text x="610" y="70" fill="#078265">Candidate</text>
+<polyline points="82.2,67.5 160.3,70.5 237.9,74.2 310.1,77.2 382.2,311.2 436.3,304.5 472.1,295.5 496.2,286.5 520.2,277.5 543.9,255.0 567.9,219.0 597.9,183.0 634.2,147.0 681.9,111.0 735.9,93.0" fill="none" stroke="#c03e37" stroke-width="3"/>
+<polyline points="142.1,69.8 220.2,73.5 291.9,76.5 370.0,96.8 442.2,96.0 508.0,87.0 580.2,89.2 651.9,93.0 724.1,96.0 789.9,99.0" fill="none" stroke="#078265" stroke-width="3"/></svg>

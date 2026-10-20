@@ -2,6 +2,12 @@
 
 - Target: stock Pololu 3pi+ 32U4 OLED Standard, four matching AAA NiMH cells.
 - Latest candidate: R45; physical R45 testing is pending.
+- Photo-course review: [72 paired model runs](reports/photo-track-r45/README.md)
+  cover an approximate 14.067 m trace with two crossings. R45's nominal crossing
+  drop is at most 2 PWM versus R44's 332; both nominal directions cover three
+  true circuits. Gyro-scale sensitivity exposes unresolved lap-anchor drift and
+  Map mismatch. Full-route criteria pass 32/36 R45 cases and 31/36 R44 cases;
+  remaining failures are retained. Firmware/tuning and release ZIPs are unchanged.
 - New report: learning follows the spirals; replay laps 2/3 fail, with hard
   crossing braking and brief acceleration. Tested revision/mode are unconfirmed.
   A global map reversal was suspected by the user, not established.
