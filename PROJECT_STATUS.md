@@ -146,6 +146,8 @@ software limitations and keep the prior candidate available for comparison.
 - All four focused native executables and the pinned Leonardo build pass:
   28662/28672 flash, 1508/2560 static RAM. Native tests retain line-loss,
   button, battery, 200 ms map-mismatch and dark/air stops. No speed/gain increase.
+- Cloud source checks also pass with identical resource totals:
+  https://github.com/altLov3r/robodays/actions/runs/39429678913.
 - Next physical test: R45 startup, complete learning lap, then Safe replay.
   Watch spiral entry and overlap exit; capture mode, voltage, lap, exact stop
   and E/D. Persistent spatial phase drift still needs real track evidence.
