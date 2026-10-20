@@ -933,6 +933,8 @@ ReplayFaultMetrics testReplayFaults(uint16_t period)
     race.turnVotes = polarity * 8;
     const int live = polarity * direction * 20;
     memset(race.curves, crossing ? live : -live, sizeof(race.curves));
+    // Agreement accepts +/-2 bins; R44 steering only searched +/-1.
+    if (!crossing) { race.curves[2] = live; }
     race.filteredCurve = live * 8;
     const int incoming = crossing ? 180 : 250;
     forwardCommand = leftCommand = rightCommand = incoming;
@@ -946,6 +948,7 @@ ReplayFaultMetrics testReplayFaults(uint16_t period)
     if (crossing) { for (auto & value : Fake::readings) { value = 1000; } }
     tick(period);
     assert(state == RUNNING && race.fault == RaceSession::NONE);
+    assert(crossing || race.mismatchMs == 0);
     const bool failed = direction * (leftCommand - rightCommand) <= 0;
     metrics.failed += failed;
     metrics.wrongTurns += failed && !crossing;

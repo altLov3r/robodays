@@ -7,6 +7,8 @@ Packaged ELF has no malloc/calloc/realloc/free. Peak stack is unmeasured.
 Four focused native executables: PASS.
 Paired R44/R45: 30 targeted control fixtures, all R44 failures retained;
 all R45 fixtures pass. Wrong-turn cases 8->0, canceled crossing turns 8->0.
+The wrong-turn fixture also asserts zero pending mismatch: the actual bend lies
+two bins away inside the agreement window, beyond R44's one-bin steering search.
 Routine crossing maximum drop 295->2/3 PWM at 5/10 ms.
 Hidden-throttle braking changes from output increase to normal deceleration.
 Eight changing-radius model runs complete with essentially unchanged results.
