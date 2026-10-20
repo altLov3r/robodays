@@ -29,9 +29,11 @@ confirm any candidate on this larger mat.
 
 - Recalibrate on the actual mat. Start midway along the long straight, pointing
   along the line and away from crossings. Keep battery placement consistent.
-- Confirm lap 1 covers the entire course before the display counts lap 2.
-- Watch whether successive estimated lap changes occur at the same physical
-  start point. The new approximate photo-course model can reproduce Map mismatch
+- Confirm the slow learning lap covers the entire course before replay accelerates.
+- For a completed session, use video and the displayed lap durations afterward
+  to locate estimated lap boundaries and check whether their physical start
+  point moves. The OLED deliberately does not update during motion. The new
+  approximate photo-course model can reproduce Map mismatch
   from gyro-scale/lap-anchor drift while still tracking the line. This is a
   sensitivity result, not a confirmed physical diagnosis; see
   `reports/photo-track-r45/README.md`.

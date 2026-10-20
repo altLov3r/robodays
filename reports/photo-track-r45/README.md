@@ -101,8 +101,10 @@ all previous release ZIPs remain unchanged.
 ## Next physical test
 
 Use frozen R45, recalibrate on the mat and start midway along the long straight.
-Complete Safe first. Film one whole learning lap and the beginning of replay:
-check whether each estimated lap changes at the same physical start point and
-whether that point walks along the straight. Then record exact stop text,
+Complete Safe first. Film the complete session. On successful sessions, combine
+the video with the lap durations displayed afterward to locate the estimated
+boundaries and check whether their physical position walks along the straight.
+The OLED deliberately does not update while running. On failures, note where
+the first learning-to-replay acceleration occurred. Record exact stop text,
 revision, mode and which crossing/bend failed. That distinguishes map phase
 drift from insufficient physical corner grip without weakening the mismatch stop.
