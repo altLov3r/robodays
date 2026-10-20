@@ -1,0 +1,121 @@
+{
+  "scope": "15 replay control fixtures and four changing-radius course models at 10 ms; no calibrated grip or photographed-track prediction.",
+  "results": {
+    "R44": [
+      {
+        "case": 0,
+        "kind": "replay_faults",
+        "fixtures": 15,
+        "failed": 15,
+        "wrong_turns": 4,
+        "lost_crossing_turns": 4,
+        "max_crossing_drop": 295,
+        "max_exit_rise": 6,
+        "braking_change": 6,
+        "complete": 0
+      },
+      {
+        "case": 1,
+        "kind": "square",
+        "corner_warp": -0.6,
+        "direction": -1,
+        "lap2": 4290,
+        "lap3": 4240,
+        "max_offset": 3.7966,
+        "complete": 1,
+        "fault": 0
+      },
+      {
+        "case": 2,
+        "kind": "square",
+        "corner_warp": 0.6,
+        "direction": -1,
+        "lap2": 4280,
+        "lap3": 4210,
+        "max_offset": 3.22308,
+        "complete": 1,
+        "fault": 0
+      },
+      {
+        "case": 3,
+        "kind": "square",
+        "corner_warp": -0.6,
+        "direction": 1,
+        "lap2": 4290,
+        "lap3": 4210,
+        "max_offset": 3.37355,
+        "complete": 1,
+        "fault": 0
+      },
+      {
+        "case": 4,
+        "kind": "square",
+        "corner_warp": 0.6,
+        "direction": 1,
+        "lap2": 4240,
+        "lap3": 4160,
+        "max_offset": 2.51243,
+        "complete": 1,
+        "fault": 0
+      }
+    ],
+    "current": [
+      {
+        "case": 0,
+        "kind": "replay_faults",
+        "fixtures": 15,
+        "failed": 0,
+        "wrong_turns": 0,
+        "lost_crossing_turns": 0,
+        "max_crossing_drop": 3,
+        "max_exit_rise": 6,
+        "braking_change": -3,
+        "complete": 1
+      },
+      {
+        "case": 1,
+        "kind": "square",
+        "corner_warp": -0.6,
+        "direction": -1,
+        "lap2": 4290,
+        "lap3": 4240,
+        "max_offset": 3.7966,
+        "complete": 1,
+        "fault": 0
+      },
+      {
+        "case": 2,
+        "kind": "square",
+        "corner_warp": 0.6,
+        "direction": -1,
+        "lap2": 4280,
+        "lap3": 4210,
+        "max_offset": 3.22308,
+        "complete": 1,
+        "fault": 0
+      },
+      {
+        "case": 3,
+        "kind": "square",
+        "corner_warp": -0.6,
+        "direction": 1,
+        "lap2": 4290,
+        "lap3": 4210,
+        "max_offset": 3.37355,
+        "complete": 1,
+        "fault": 0
+      },
+      {
+        "case": 4,
+        "kind": "square",
+        "corner_warp": 0.6,
+        "direction": 1,
+        "lap2": 4240,
+        "lap3": 4160,
+        "max_offset": 2.51243,
+        "complete": 1,
+        "fault": 0
+      }
+    ]
+  }
+}

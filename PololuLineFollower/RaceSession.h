@@ -3,7 +3,7 @@
 #include <math.h>
 #include <string.h>
 
-constexpr uint8_t RACE_PLANNER_REVISION = 44;
+constexpr uint8_t RACE_PLANNER_REVISION = 45;
 
 enum DriveMode : uint8_t { SAFE, MID, BEAST };
 
@@ -369,11 +369,14 @@ public:
       if (index < 0) { index = binsUsed - 1; }
       if (index >= static_cast<int16_t>(binsUsed)) { index = 0; }
       const int8_t candidate = curves[index];
-      if (candidate != UNKNOWN_CURVE && static_cast<int16_t>(candidate) * live > 0 &&
-        (mapped == UNKNOWN_CURVE || static_cast<int16_t>(mapped) * live <= 0 || abs(candidate) > abs(mapped)))
+      if (candidate != UNKNOWN_CURVE && candidate && (candidate < 0) == (live < 0) &&
+        (mapped == UNKNOWN_CURVE || !mapped || (mapped < 0) != (live < 0) || abs(candidate) > abs(mapped)))
       { mapped = candidate; }
     }
-    if (mapped == UNKNOWN_CURVE || static_cast<int16_t>(mapped) * live <= 0) { return 0; }
+    if (mapped == UNKNOWN_CURVE || !mapped) { return 0; }
+    // A phase-shifted opposite bend must not leave damping steering against
+    // the optically requested, confirmed live turn while agreement times out.
+    if ((mapped < 0) != (live < 0)) { mapped = live; }
     int16_t bend = mapped;
     // Ramp the desired turn with measured entry confidence, without delaying
     // feedback or imposing a lagging slew limit on the wheel commands.

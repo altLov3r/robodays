@@ -35,10 +35,9 @@ See the [official OpenAI cloud setup](https://learn.chatgpt.com/docs/cloud).
 
 ## Overnight reviews
 
-An every-two-hours follow-up is scheduled in the current desktop chat until
-09:00 Europe/Sofia on 20 October 2026. This is a local heartbeat: leave the PC
-on and the app running for it to access this checkout. The GitHub copy and its
-cloud CI are independent of that local review schedule. See the
+The overnight follow-up was paused at the user's request on 20 October 2026.
+The GitHub copy and cloud CI remain available independently. The current manual
+work does not restart the scheduled reviews. See the
 [official scheduled-task documentation](https://learn.chatgpt.com/docs/automations?surface=app).
 
 On this PC, pushes can use the existing GitHub CLI sign-in without a separate

@@ -233,7 +233,7 @@ MotionMetrics testRoundedSquare(DriveMode mode, float straight, float radius,
   float direction, float motorGain = 2.5f, int sensorNoise = 0,
   float gyroPolarity = 1, float wheelBase = 86, float gainMismatch = 0,
   float motorResponse = 0.25f, uint32_t noiseSeed = 0x51a7u, bool strictChecks = true,
-  uint16_t replayPeriod = 10, int mapShiftBins = 0)
+  uint16_t replayPeriod = 10, int mapShiftBins = 0, float cornerWarp = 0)
 {
   struct Point { float x, y, along, remaining; bool curve; };
   std::vector<Point> track;
@@ -247,12 +247,17 @@ MotionMetrics testRoundedSquare(DriveMode mode, float straight, float radius,
       tx += ds * cosf(angle); ty += ds * sinf(angle);
     }
     const float arc = radius * 3.14159265f / 2;
-    for (float s = 0; s < arc; s += 1)
+    float cornerAngle = 0;
+    for (float s = 0; cornerWarp ? cornerAngle < 3.14159265f / 2 : s < arc; s += 1)
     {
       track.push_back({tx, ty, s, arc - s, true});
-      const float ds = fminf(1, arc - s), turn = direction * ds / radius;
+      const float localRadius = radius * (1 + cornerWarp * cosf(2 * cornerAngle));
+      const float ds = cornerWarp ? fminf(1, (3.14159265f / 2 - cornerAngle) * localRadius) :
+        fminf(1, arc - s);
+      const float turn = direction * ds / localRadius;
       tx += ds * cosf(angle + turn / 2); ty += ds * sinf(angle + turn / 2);
       angle += turn;
+      cornerAngle += ds / localRadius;
     }
   }
   resetRobot();
@@ -874,6 +879,93 @@ CrossingMetrics testCrossingHistory(uint16_t period)
   return metrics;
 }
 
+struct ReplayFaultMetrics
+{
+  unsigned cases = 0, failed = 0, wrongTurns = 0, lostCrossingTurns = 0;
+  int maxCrossingDrop = 0, maxExitRise = 0;
+  int brakingChange = 0;
+};
+
+ReplayFaultMetrics testReplayFaults(uint16_t period)
+{
+  ReplayFaultMetrics metrics;
+  for (const int incoming : {100, 280, 360})
+  for (const int mappedCurve : {0, 80})
+  {
+    readyFastReplay();
+    memset(race.curves, mappedCurve, sizeof(race.curves));
+    Fake::directCounts = true;
+    Fake::leftCounts = Fake::rightCounts = 10;
+    leftCommand = rightCommand = incoming;
+    forwardCommand = incoming == 280 ? 400 : incoming;
+    motors.setSpeeds(incoming, incoming);
+    bool failed = false;
+    for (unsigned frame = 0; frame < 8; frame++)
+    {
+      for (auto & value : Fake::readings) { value = 1000; }
+      Fake::readings[frame % 2 ? 0 : 4] = 0;
+      Fake::position = frame % 2 ? 2500 : 1500;
+      const int before = (leftCommand + rightCommand) / 2;
+      tick(period);
+      assert(state == RUNNING && race.fault == RaceSession::NONE);
+      const int after = (leftCommand + rightCommand) / 2;
+      const int drop = before - after;
+      metrics.maxCrossingDrop = std::max(metrics.maxCrossingDrop, drop);
+      failed |= after > before || drop > (Settings::DRIVE_BRAKE_STEP * period + 9) / 10;
+    }
+    const int beforeExit = (leftCommand + rightCommand) / 2;
+    Fake::position = 2000;
+    for (unsigned i = 0; i < 5; i++) { Fake::readings[i] = i == 2 ? 1000 : 0; }
+    tick(period);
+    const int rise = (leftCommand + rightCommand) / 2 - beforeExit;
+    metrics.maxExitRise = std::max(metrics.maxExitRise, rise);
+    failed |= rise > Settings::DRIVE_ACCEL_STEP * period / 10;
+    metrics.cases++;
+    metrics.failed += failed;
+  }
+  for (const int polarity : {-1, 1})
+  for (const int direction : {-1, 1})
+  for (const bool crossing : {false, true})
+  {
+    readyFastReplay();
+    race.speedScaleQ8 = 920;
+    race.speedMmS = 900;
+    race.turnVotes = polarity * 8;
+    const int live = polarity * direction * 20;
+    memset(race.curves, crossing ? live : -live, sizeof(race.curves));
+    race.filteredCurve = live * 8;
+    const int incoming = crossing ? 180 : 250;
+    forwardCommand = leftCommand = rightCommand = incoming;
+    motors.setSpeeds(incoming, incoming);
+    Fake::directCounts = true;
+    Fake::leftCounts = Fake::rightCounts = period == 5 ? 16 : 32;
+    const float turn = Fake::leftCounts * RaceSession::MM_PER_COUNT * live / 6000;
+    Fake::gyroRaw = lroundf(turn / (0.07f * 3.14159265f / 180 * period * 0.001f));
+    Fake::position = 2000 + direction * 100;
+    lastError = direction * 100;
+    if (crossing) { for (auto & value : Fake::readings) { value = 1000; } }
+    tick(period);
+    assert(state == RUNNING && race.fault == RaceSession::NONE);
+    const bool failed = direction * (leftCommand - rightCommand) <= 0;
+    metrics.failed += failed;
+    metrics.wrongTurns += failed && !crossing;
+    metrics.lostCrossingTurns += failed && crossing;
+    metrics.cases++;
+  }
+  readyFastReplay();
+  memset(race.curves, 80, sizeof(race.curves));
+  leftCommand = rightCommand = 280;
+  forwardCommand = 400;
+  motors.setSpeeds(280, 280);
+  tick(period);
+  assert(state == RUNNING && race.fault == RaceSession::NONE);
+  metrics.brakingChange = (leftCommand + rightCommand) / 2 - 280;
+  metrics.failed += metrics.brakingChange >= 0 ||
+    metrics.brakingChange < -(Settings::DRIVE_BRAKE_STEP * period + 9) / 10;
+  metrics.cases++;
+  return metrics;
+}
+
 void testTightLaunchGate()
 {
   for (const int limit : {0, 32, 96})
@@ -1339,7 +1431,7 @@ void testExitLaunch()
   forwardCommand = leftCommand = rightCommand = 40;
   for (unsigned sensor = 0; sensor < 5; sensor++) { Fake::readings[sensor] = 1000; }
   tick(5);
-  assert(state == RUNNING && forwardCommand == 43); // Crossing cannot use a stale exit permission.
+  assert(state == RUNNING && forwardCommand == 40); // Crossing cannot use a stale exit permission.
 }
 
 void testCornerExitLineConfirmation()
@@ -1460,7 +1552,8 @@ void testFastControl()
   readyFastReplay();
   tick(5);
   assert(forwardCommand == 112 && throttleRemainder == 0);
-  forwardCommand = 200;
+  forwardCommand = leftCommand = rightCommand = 200;
+  motors.setSpeeds(200, 200);
   memset(race.curves, 127, sizeof(race.curves));
   tick(5);
   assert(forwardCommand == 199 && throttleRemainder == -5);
@@ -1469,7 +1562,8 @@ void testFastControl()
   memset(race.curves, 0, sizeof(race.curves));
   tick(5);
   assert(forwardCommand == 200 && throttleRemainder == 0);
-  forwardCommand = 398;
+  forwardCommand = leftCommand = rightCommand = 398;
+  motors.setSpeeds(398, 398);
   tick(5);
   assert(forwardCommand == 400 && throttleRemainder == 0);
   memset(race.curves, 127, sizeof(race.curves));
@@ -1875,7 +1969,7 @@ int main(int argc, char ** argv)
   assert(baseSpeedForLine(100, 60, false) == 80);
   assert(baseSpeedForLine(2000, 0, false) == 65);
   assert(baseSpeedForLine(0, 1000, false) == 65);
-  assert(baseSpeedForLine(0, 0, true) == 65);
+  assert(baseSpeedForLine(0, 0, true) == 0); // A crossing cannot accelerate stopped outputs.
   int16_t previousBase = 80;
   for (int16_t error = 0; error <= 2000; error += 25)
   {
@@ -1898,7 +1992,7 @@ int main(int argc, char ** argv)
     const int16_t mapped = race.plannedCruise(true);
     assert(baseSpeedForLine(500, 0, false) == (live < mapped ? live : mapped));
     assert(baseSpeedForLine(2000, 0, false) == 65);
-    assert(baseSpeedForLine(0, 0, true) == 65);
+    assert(baseSpeedForLine(0, 0, true) == 0);
   }
   race.reset(selectedMode, Fake::now);
 
@@ -2117,6 +2211,11 @@ int main(int argc, char ** argv)
     assert(crossing.cases == 54 && crossing.failed == 0);
     std::cout << "Crossing history " << period << " ms: " << crossing.cases
       << " centered/asymmetric trace pairs match.\n";
+    const auto replay = testReplayFaults(period);
+    assert(replay.cases == 15 && replay.failed == 0);
+    std::cout << "Replay faults " << period << " ms: crossing drop " << replay.maxCrossingDrop
+      << " PWM, wrong turns " << replay.wrongTurns << ", lost crossing turns "
+      << replay.lostCrossingTurns << ".\n";
   }
   if (focused)
   {

@@ -108,7 +108,7 @@ inline uint16_t readBatteryMillivolts()
 #include <avr/wdt.h>
 #include "RaceSession.h"
 
-static_assert(RACE_PLANNER_REVISION == 44, "Update both sketch files together.");
+static_assert(RACE_PLANNER_REVISION == 45, "Update both sketch files together.");
 
 using namespace Pololu3piPlus32U4;
 
@@ -844,7 +844,6 @@ int16_t accelerationStep()
 
 int16_t baseSpeedForLine(int16_t error, int16_t delta, bool crossing)
 {
-  if (crossing) { speedLimiter = LINE_LIMIT; return Settings::CURVE_SPEED; }
   const int16_t offset = abs(error);
   const int16_t change = abs(delta);
   // Small centered sensor jitter should steer without cutting straight throttle.
@@ -853,8 +852,10 @@ int16_t baseSpeedForLine(int16_t error, int16_t delta, bool crossing)
   // Map and live sensing independently cap speed; do not apply the same bend
   // penalty twice by scaling an already-reduced mapped target again.
   const int16_t cruise = race.profile().cruise;
-  const int16_t live = trackingSpeed(cruise, demand);
-  int16_t mapped = race.plannedCruise(lineSettled(error, delta));
+  // An ambiguous crossing may brake for the map, but cannot accelerate or
+  // demand the old abrupt 65 PWM drop. Requalification follows valid samples.
+  const int16_t live = crossing ? (leftCommand + rightCommand) / 2 : trackingSpeed(cruise, demand);
+  int16_t mapped = race.plannedCruise(!crossing && lineSettled(error, delta));
   // Brake while the mismatch detector gathers evidence, before its 200 ms stop.
   if (race.mapUncertain() && mapped > 180) { mapped = 180; }
   speedLimiter = mapped < live ? (race.liveLimited ? YAW_LIMIT : MAP_LIMIT) : LINE_LIMIT;
@@ -939,9 +940,10 @@ __attribute__((noinline)) void followLine(uint32_t now)
   if (!checkEncoders(now)) { return; }
   float turn = 0;
   if (!readTurnDelta(turn)) { return; }
+  const int16_t delivered = (leftCommand + rightCommand) / 2;
   race.noteTracking(error, filteredDelta, crossing); // Include the lap's final sample.
   const RaceSession::Event event = race.update(latestLeftCounts, latestRightCounts,
-    turn, static_cast<uint16_t>(elapsed), (leftCommand + rightCommand) / 2, now);
+    turn, static_cast<uint16_t>(elapsed), delivered, now);
   if (race.fault != RaceSession::NONE)
   {
     if (race.fault == RaceSession::MAP_FULL) { stopRobot(F("Map full")); }
@@ -953,32 +955,31 @@ __attribute__((noinline)) void followLine(uint32_t now)
   }
   if (event == RaceSession::SESSION_FINISHED) { showResults(); return; }
   uint8_t yawWeight = 0;
+  const int16_t assist = race.steeringFeedforward(delivered,
+    crossing ? 0 : error, &yawWeight);
+  const int16_t derivativeGain = fastReplay && yawWeight == 2 &&
+    abs(error) < 160 && abs(filteredDelta) < 60 ? Settings::STRAIGHT_KD_256 : Settings::KD_256;
   if (!crossing)
+  { correction = (static_cast<int32_t>(steerError) * Settings::KP_256 +
+    static_cast<int32_t>(steerDelta) * derivativeGain) / 256; }
+  correction += assist;
+  if (yawWeight)
   {
-    const int16_t assist = race.steeringFeedforward((leftCommand + rightCommand) / 2, error, &yawWeight);
-    const int16_t derivativeGain = fastReplay && yawWeight == 2 &&
-      abs(error) < 160 && abs(filteredDelta) < 60 ? Settings::STRAIGHT_KD_256 : Settings::KD_256;
-    correction = (static_cast<int32_t>(steerError) * Settings::KP_256 +
-      static_cast<int32_t>(steerDelta) * derivativeGain) / 256;
-    correction += assist;
-    if (yawWeight)
-    {
-      // Dampen actual yaw with the gyro, relative to the confirmed mapped turn.
-      // Optical derivative noise must not be the only source of yaw damping.
-      const uint16_t yawScale = race.yawScale();
-      // Use measured rate directly: gyro integration and loop millis have
-      // different timestamps, which otherwise modulate damping on short ticks.
-      int16_t measuredTurn = (imu.g.z - gyroBias) *
-        (0.07f * 3.14159265f / 180000.0f) * yawScale;
-      if (race.turnVotes < 0) { measuredTurn = -measuredTurn; }
-      // Let an optically requested turn develop before the map catches up.
-      // Keep the existing recovery damping when yaw goes the wrong way.
-      if (abs(error) >= 400 ||
-        (fastReplay && abs(error) >= 160 && measuredTurn && (error < 0) == (measuredTurn < 0))) { yawWeight = 1; }
-      // Restore R24 damping around mapped yaw; keep optical PD at its tuned gain.
-      const int16_t damping = assist - measuredTurn;
-      correction += damping * yawWeight / 2;
-    }
+    // Dampen actual yaw with the gyro, relative to the confirmed mapped turn.
+    // Optical derivative noise must not be the only source of yaw damping.
+    const uint16_t yawScale = race.yawScale();
+    // Use measured rate directly: gyro integration and loop millis have
+    // different timestamps, which otherwise modulate damping on short ticks.
+    int16_t measuredTurn = (imu.g.z - gyroBias) *
+      (0.07f * 3.14159265f / 180000.0f) * yawScale;
+    if (race.turnVotes < 0) { measuredTurn = -measuredTurn; }
+    // Let an optically requested turn develop before the map catches up.
+    // Keep the existing recovery damping when yaw goes the wrong way.
+    if (!crossing && (abs(error) >= 400 ||
+      (fastReplay && abs(error) >= 160 && measuredTurn && (error < 0) == (measuredTurn < 0)))) { yawWeight = 1; }
+    // Restore R24 damping around mapped yaw; keep optical PD at its tuned gain.
+    const int16_t damping = assist - measuredTurn;
+    correction += damping * yawWeight / 2;
   }
   const int16_t steeringLimit = race.steeringLimit();
   if (correction > steeringLimit) { correction = steeringLimit; }
@@ -989,6 +990,9 @@ __attribute__((noinline)) void followLine(uint32_t now)
   const int16_t steeringBase = ceiling - abs(correction);
   if (!fastReplay && requested > steeringBase)
   { requested = steeringBase; speedLimiter = STEER_LIMIT; }
+  // Brake from delivered power, not throttle hidden by an earlier steering trim.
+  if ((crossing || requested < delivered) && forwardCommand > delivered)
+  { forwardCommand = delivered; }
   // Ramp the common throttle, not each wheel: alternating corrections must not
   // ratchet both wheels down. Large tracking errors bypass routine soft braking.
   int16_t change = requested - forwardCommand;
@@ -1004,7 +1008,7 @@ __attribute__((noinline)) void followLine(uint32_t now)
   else if (change < 0 && change < ramp) { change = ramp; }
   else { throttleRemainder = 0; }
   forwardCommand += change;
-  if ((crossing || abs(error) >= 700 || abs(filteredDelta) >= 250) && forwardCommand > requested)
+  if ((abs(error) >= 700 || abs(filteredDelta) >= 250) && forwardCommand > requested)
   { forwardCommand = requested; throttleRemainder = 0; }
   if (forwardCommand > peakThrottlePwm) { peakThrottlePwm = forwardCommand; }
   int16_t base = forwardCommand;
@@ -1013,7 +1017,7 @@ __attribute__((noinline)) void followLine(uint32_t now)
   // ramp: alternating corrections must not ratchet the next command down.
   if (fastReplay && base > steeringBase) { base = steeringBase; }
   // Steering unwind must not release hidden common throttle in one jump.
-  const int16_t releaseLimit = (leftCommand + rightCommand) / 2 + acceleration * dt / Settings::CONTROL_MS;
+  const int16_t releaseLimit = delivered + acceleration * dt / Settings::CONTROL_MS;
   if (fastReplay && base > releaseLimit) { base = releaseLimit; }
   const int16_t room = base < ceiling - base ? base : ceiling - base;
   if (correction > room) { correction = room; }
@@ -1060,7 +1064,7 @@ void setup()
   ledRed(false);
   ledGreen(false);
   ledYellow(false);
-  showStatus(F("3pi+ R44"), buttonMenu());
+  showStatus(F("3pi+ R45"), buttonMenu());
   lastIdleUpdate = millis() - 500;
   showIdleInfo(millis());
   lastButtonHeld = millis();

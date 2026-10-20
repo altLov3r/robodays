@@ -1016,7 +1016,9 @@ int main(int argc, char ** argv)
     assert(race.steeringFeedforward(100, 0) >= 20 && race.steeringFeedforward(100, 0) <= 22);
     assert(race.steeringFeedforward(100, -81) == 0); // Current feedback vetoes stale turns.
     race.filteredCurve = -polarity * 30 * 8;
-    assert(race.steeringFeedforward(100, 0) == 0);
+    const int reversed = race.steeringFeedforward(100, 0);
+    assert(reversed >= -22 && reversed <= -20); // Live direction survives an opposing map.
+    assert(race.steeringFeedforward(100, 81) == 0);
     race.filteredCurve = 0;
     assert(race.steeringFeedforward(100, 0) == 0);
     race.filteredCurve = polarity * 30 * 8;
@@ -1060,7 +1062,9 @@ int main(int argc, char ** argv)
         race.filteredCurve = 0;
         const int16_t assist = race.steeringFeedforward(100, sign * error);
         assert(error < 60 ? assist == 0 : assist * sign > 0);
-        assert(race.steeringFeedforward(100, -sign * error) == 0);
+        const int16_t opposing = race.steeringFeedforward(100, -sign * error);
+        assert(opposing * sign <= 0); // Never reinforce the contradicted map direction.
+        if (error >= 99) { assert(opposing * sign < 0); }
       }
       memset(race.curves, 0, sizeof(race.curves));
       assert(race.steeringFeedforward(100, sign * 2000) == 0);

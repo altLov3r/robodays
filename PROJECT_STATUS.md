@@ -1,7 +1,12 @@
-# Status: 19 October 2026
+# Status: 20 October 2026
 
 - Target: stock Pololu 3pi+ 32U4 OLED Standard, four matching AAA NiMH cells.
-- Latest candidate: R44. No physical R43/R44 testing has happened.
+- Latest candidate: R45; physical R45 testing is pending.
+- New report: learning follows the spirals; replay laps 2/3 fail, with hard
+  crossing braking and brief acceleration. Tested revision/mode are unconfirmed.
+  A global map reversal was suspected by the user, not established.
+- R45 removes the forced crossing snap to 65 PWM, retains map/gyro steering
+  through overlaps and follows live turn direction when a mapped bend opposes it.
 - Confirmed large-mat failure: **Map mismatch**, plus one incorrect corner.
   RAM exhaustion and Map full were not confirmed. The mat has S-bends/crossings.
 - R44 retains the last valid optical error during a crossing, preventing its
@@ -9,8 +14,8 @@
 - R43 adds a 30 ms mismatch-caution request cap, boost inhibition and live-yaw
   assistance, plus signed fine-map diagnostics. The 200 ms mismatch stop remains.
   Pooled maps retain magnitude-only acceptance. R42's capacity changes remain.
-- Local build: 28670/28672 flash, 1508/2560 static RAM, no linked heap allocators.
-  Only two flash bytes remain with the pinned toolchain; do not drop safeguards
+- Local build: 28662/28672 flash, 1508/2560 static RAM, no linked heap allocators.
+  Only ten flash bytes remain with the pinned toolchain; do not drop safeguards
   to make an oversized build fit. Peak stack/physical timing are unmeasured.
 - Four focused native executables pass, including 108 crossing trace pairs.
   Historical R42/R43 paired reports have 33 passing R43 cases. Most course
@@ -18,12 +23,12 @@
   slower and has larger sensor SD. It needs review, not a blanket speed claim.
 - The old testStraightStability noise40/output-drop assertion fails identically
   in frozen R42 and R43. That historical check is not included among the passes.
-- R42/R43 and older release ZIPs are preserved. R44 should remain a test candidate
+- R42/R43/R44 and older release ZIPs are preserved. R45 should remain a test candidate
   until LAB_TEST.md contains physical results.
 - Private source: https://github.com/altLov3r/robodays. Cloud CI and access
   instructions are in CLOUD.md. This desktop chat is still a local executor.
-- Overnight heartbeat: robodays-overnight-review, every two hours until
-  09:00 Europe/Sofia on 20 October 2026. Local PC/app must remain available.
+- Overnight heartbeat robodays-overnight-review was paused at the user's
+  request. The current R45 work is a new manual request; do not restart it.
 
 ## Useful remaining work
 
@@ -116,3 +121,31 @@ software limitations and keep the prior candidate available for comparison.
   28670/28672 flash and 1508/2560 static RAM. No paired trajectory rerun needed.
 - Next physical test remains one entire learning lap, then Safe on the large
   mat; capture exact stop, E/D, voltage and corner/crossing location.
+
+## R45: physical replay report and targeted correction
+
+- Reproduced a crossing discontinuity: 280 PWM became 65 in one control tick.
+  R45 holds at most the delivered entry average, with normal mapped braking.
+  It excludes optical PD at an ambiguous crossing while retaining gyro/map
+  steering; strong launch still waits for valid optical/yaw requalification.
+- Reproduced opposite replay steering before mismatch caution: valid line error
+  and gyro requested a positive turn, but R44 commanded -16 PWM differential;
+  the mirrored case also failed. An opposing stored bend suppressed assistance
+  and left yaw damping fighting the requested turn. Live-direction fallback
+  corrects this without changing normal matching-map prediction or map order.
+- Braking now anchors hidden internal throttle to delivered power when the
+  independent speed request requires braking, and throughout crossings. R44's
+  400 internal / 280 delivered fixture briefly accelerates under a brake request;
+  R45 immediately decelerates at the normal rate. Straight jitter must not ratchet
+  throttle down; its independent request retains the existing policy.
+- Both gyro polarities and turn directions pass. All 30 targeted command
+  fixtures now pass; frozen R44 fails all 30. Routine crossing drop changes
+  295 -> 2/3 PWM at 5/10 ms; wrong-way and canceled-crossing-turn cases become zero.
+  Eight changing-radius course runs complete with effectively unchanged timing
+  and offsets. Reports: `releases/*R45-replay*.json`; these are not track predictions.
+- All four focused native executables and the pinned Leonardo build pass:
+  28662/28672 flash, 1508/2560 static RAM. Native tests retain line-loss,
+  button, battery, 200 ms map-mismatch and dark/air stops. No speed/gain increase.
+- Next physical test: R45 startup, complete learning lap, then Safe replay.
+  Watch spiral entry and overlap exit; capture mode, voltage, lap, exact stop
+  and E/D. Persistent spatial phase drift still needs real track evidence.

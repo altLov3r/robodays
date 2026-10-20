@@ -16,6 +16,7 @@ parser.add_argument("--candidate", type=Path, default=root, help="Workspace cont
 parser.add_argument("--period-ms", type=int, choices=(5, 10), default=5)
 parser.add_argument("--stress", action="store_true", help="Include motor/geometry/noise variations.")
 parser.add_argument("--crossings-only", action="store_true", help="Compare crossing command traces only; no trajectory models.")
+parser.add_argument("--replay-only", action="store_true", help="Compare reported replay faults and four changing-radius courses.")
 parser.add_argument("--output", type=Path, required=True)
 options = parser.parse_args()
 compiler = shutil.which("g++") or "C:/msys64/mingw64/bin/g++.exe"
@@ -280,6 +281,40 @@ int main()
 '''
 
 results = {}
+if options.replay_only:
+    harness = r'''
+#include <sstream>
+#define main regression_main
+#include "test_line_follower.cpp"
+#undef main
+int main()
+{
+  const auto faults = testReplayFaults(MODEL_PERIOD);
+  std::cout << "{\"case\":0,\"kind\":\"replay_faults\",\"fixtures\":" << faults.cases
+    << ",\"failed\":" << faults.failed << ",\"wrong_turns\":" << faults.wrongTurns
+    << ",\"lost_crossing_turns\":" << faults.lostCrossingTurns
+    << ",\"max_crossing_drop\":" << faults.maxCrossingDrop
+    << ",\"max_exit_rise\":" << faults.maxExitRise
+    << ",\"braking_change\":" << faults.brakingChange
+    << ",\"complete\":" << (faults.failed == 0) << "}\n";
+  for (unsigned test = 1; test <= 4; test++)
+  {
+    std::ostringstream diagnostic;
+    auto output = std::cout.rdbuf(diagnostic.rdbuf());
+    const int direction = test <= 2 ? -1 : 1;
+    const float warp = test % 2 ? -0.6f : 0.6f;
+    const auto data = testRoundedSquare(BEAST,600,150,direction,3.75f,40,1,86,0,
+      0.25f,0x51a7u,false,MODEL_PERIOD,0,warp);
+    std::cout.rdbuf(output);
+    std::cout << "{\"case\":" << test << ",\"kind\":\"square\",\"corner_warp\":" << warp
+      << ",\"direction\":" << direction << ",\"lap2\":" << data.lapTimes[1]
+      << ",\"lap3\":" << data.lapTimes[2] << ",\"max_offset\":"
+      << std::max(data.maxCrossTrack[1],data.maxCrossTrack[2])
+      << ",\"complete\":" << (race.completed == 3 && state == IDLE && race.fault == RaceSession::NONE)
+      << ",\"fault\":" << int(race.fault) << "}\n";
+  }
+}
+'''
 if options.crossings_only:
     harness = r'''
 #define main regression_main
@@ -312,7 +347,7 @@ with tempfile.TemporaryDirectory(prefix="robodays-motion-") as temporary:
         tests.mkdir()
         shutil.copy2(root / "tests/test_line_follower.cpp", tests / "test_line_follower.cpp")
         shutil.copytree(root / "tests/fakes", tests / "fakes")
-        case_count = 1 if options.crossings_only else (33 if options.stress else 9)
+        case_count = 1 if options.crossings_only else (5 if options.replay_only else (33 if options.stress else 9))
         source_text = harness.replace("MODEL_PERIOD", str(options.period_ms)).replace("MODEL_CASES", str(case_count))
         (tests / "motion.cpp").write_text(source_text, encoding="utf-8")
         executable = tests / "motion.exe"
@@ -330,6 +365,8 @@ with tempfile.TemporaryDirectory(prefix="robodays-motion-") as temporary:
     options.output.write_text(json.dumps({
         "scope": (f"54 centered/asymmetric crossing command-trace pairs, {options.period_ms} ms; no trajectory or grip model."
                   if options.crossings_only else
+                  f"15 replay control fixtures and four changing-radius course models at {options.period_ms} ms; no calibrated grip or photographed-track prediction."
+                  if options.replay_only else
                   f"{23 if options.stress else 8} uncalibrated motion cases, {options.period_ms} ms replay (jitter case 10-20 ms), plus {'command, throttle-release, settling, three mismatch, repeated-session, corner-entry, large-map and pending-mismatch fixtures' if options.stress else 'one command fixture'}; no physical lap prediction or calibrated tire friction."),
         "results": results,
     }, indent=2) + "\n", encoding="utf-8")
@@ -338,7 +375,11 @@ for old, new in zip(results[options.baseline], results["current"]):
     assert old["case"] == new["case"]
     if old["complete"] and not new["complete"]:
         raise SystemExit(f"Model regression in case {old['case']}; see {options.output}")
-    if new["kind"] == "crossing":
+    if new["kind"] == "replay_faults":
+        print(f"Replay fixtures: {old['failed']}->{new['failed']} failed; wrong turns "
+              f"{old['wrong_turns']}->{new['wrong_turns']}; crossing drop "
+              f"{old['max_crossing_drop']}->{new['max_crossing_drop']} PWM")
+    elif new["kind"] == "crossing":
         print(f"Crossing pairs: {old['failed_pairs']} -> {new['failed_pairs']} differing traces; "
               f"extra exit differential {old['max_exit_motor_difference']} -> {new['max_exit_motor_difference']} PWM")
     elif new["kind"] == "pending_mismatch":
